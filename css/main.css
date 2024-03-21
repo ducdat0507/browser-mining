@@ -58,6 +58,7 @@ body {
     inset: 0 0 auto 0;
     display: flex;
     padding: 5px;
+    gap: 4px;
 }
 
 #topbar .tally {

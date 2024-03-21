@@ -1,3 +1,4 @@
+import format from "./format.js";
 import { targetSpeed } from "./input.js";
 import { data } from "./save.js";
 import * as scene from "./scene.js";
@@ -13,11 +14,17 @@ export function init() {
     topbar.$block = blockTally;
     topbar.append(blockTally);
 
+    let depthTally = create.tally("Depth");
+    topbar.$depth = depthTally;
+    topbar.append(depthTally);
+
+
     splash = document.getElementById("splash");
 }
 
 export function update() {
-    topbar.$block.$value.textContent = (+data.stats.blockMined).toLocaleString("en-US");
+    topbar.$block.$value.textContent = format(data.stats.blockMined);
+    topbar.$depth.$value.textContent = format(-scene.playerPos.y) + "m";
 }
 
 export let create = {
