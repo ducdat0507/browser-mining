@@ -228,7 +228,7 @@ export function doPhysics(delta) {
     if (length > friction) moveDelta.normalize().multiplyScalar(friction);
     playerVel.add(moveDelta);
     
-    let uvs = [0, 1, 0.5, 1, 1, 1, 0, -1, 0.5, -1, 1, -1];
+    let uvs = [0, .99, 0.5, .99, 1, .99, 0, -.99, 0.5, -.99, 1, -.99];
     
     // Move x
     if (playerVel.x) {
