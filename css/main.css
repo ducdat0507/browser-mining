@@ -168,3 +168,10 @@ button {
 .inventory-item > .item-amount {
     font-weight: bold;
 }
+
+.inventory-item[tier="-1"] {
+    background: linear-gradient(90deg, #333, #3337);
+}
+.inventory-item[tier="0"] {
+    background: linear-gradient(90deg, #666, #6667);
+}

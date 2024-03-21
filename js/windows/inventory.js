@@ -21,7 +21,8 @@ export function build(window) {
 export function update(window) {
     let index = 0;
     let tab = "normal"
-    for (let ore in save.data.inv[tab]) {
+    let list = Object.keys(save.data.inv[tab]).sort((x, y) => (ores[y].tier - ores[x].tier) || ores[x].name.localeCompare(ores[y].name))
+    for (let ore of list) {
         if (window.$list.length <= index) {
             let item = document.createElement("div");
             item.classList.add("inventory-item");
@@ -43,6 +44,7 @@ export function update(window) {
         let oreData = ores[ore];
         item.$name.textContent = oreData.name;
         item.$amount.textContent = format(save.data.inv[tab][ore]);
+        item.setAttribute("tier", oreData.tier);
 
         index++;
     }
