@@ -60,9 +60,6 @@ export function initView() {
         viewScene.add(viewCursor);
     }
 
-    window.camera = viewCamera;
-    window.scene = viewScene;
-
     isReady = true;
 }
 
@@ -84,14 +81,22 @@ export function updateView() {
     }
     
     // Updating the scene
-    for (let x = -6; x <= 6; x++)
-    for (let y = -6; y <= 6; y++)
-    for (let z = -6; z <= 6; z++) {
+    for (let id in viewMeshes) viewMeshes[id].active = false;
+
+    let offset = [
+        Math.floor(scene.playerPos.x / scene.chunkSize),
+        Math.floor(scene.playerPos.y / scene.chunkSize),
+        Math.floor(scene.playerPos.z / scene.chunkSize)
+    ]
+
+    for (let x = -6 + offset[0]; x <= 6 + offset[0]; x++)
+    for (let y = -6 + offset[1]; y <= 6 + offset[1]; y++)
+    for (let z = -6 + offset[2]; z <= 6 + offset[2]; z++) {
         let chunk;
         let pos = new _3.Vector3(x, y, z);
         let id = x + "x" + y + "x" + z;
         if (chunk = scene.mine[id]) {
-            if (chunk.dirty) {
+            if (chunk.dirty || !viewMeshes[id]) {
                 if (viewMeshes[id]) {
                     viewScene.remove(viewMeshes[id].mesh);
                 } else {
@@ -116,11 +121,17 @@ export function updateView() {
                 viewMeshes[id].mesh = new _3.Mesh(viewMeshes[id].geometry, materials.basic);
                 viewMeshes[id].frustumCulled = false;
                 viewMeshes[id].mesh.position.set(x * scene.chunkSize, y * scene.chunkSize, z * scene.chunkSize);
-                console.log(id, viewMeshes[id].mesh.position);
                 viewScene.add(viewMeshes[id].mesh);
                 chunk.dirty = false;
             }
+            if (viewMeshes[id]) viewMeshes[id].active = true;
         } 
+    }
+    
+    for (let id in viewMeshes) if (!viewMeshes[id].active) {
+        viewScene.remove(viewMeshes[id].mesh);
+        viewMeshes[id].geometry.dispose();
+        delete viewMeshes[id];
     }
 
     // Camera thingy
@@ -145,7 +156,6 @@ export function updateView() {
     if (currentBlock) {
         viewCursor.position.copy(currentBlock.blockPos);
         viewCursor.position.add(new _3.Vector3(0.5, 0.5, 0.5));
-        window.viewCursor = viewCursor;
     } else {
         viewCursor.position.set(NaN, NaN, NaN);
         document.getElementById("splash").innerHTML += "";
@@ -186,8 +196,5 @@ function getChunkGeometryData(chunkPos, chunk) {
             }
         }
     }
-    console.log(chunkPos, counter, positions.length, normals.length, indices.length, uvs.length);
     return {positions, normals, indices, uvs};
 }
-
-window.viewMeshes = viewMeshes;

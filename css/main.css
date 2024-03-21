@@ -63,7 +63,7 @@ body {
 }
 
 #topbar .tally {
-    min-width: 200px;
+    width: 150px;
     background: #0007;
     border: 1px solid #aaaa;
     border-radius: 5px;
@@ -89,4 +89,45 @@ body {
     height: 20px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* -------------------------------------------------- Windows
+*/
+.window {
+    position: fixed;
+    width: 150px;
+    background: #0007;
+    border: 1px solid #aaaa;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.window > .window-title {
+    background: linear-gradient(#222a, #000a);
+    border-bottom: 1px solid #aaaa;
+    padding: 5px 7px;
+    flex: 0 0;
+    font-weight: bold;
+}
+.window > .window-content {
+    position: relative;
+    flex: 1 1;
+}
+
+/* -------------------------------------------------- Inventory
+*/
+.inventory-list {
+    position: absolute;
+    inset: 0;
+    overflow: hidden overflow;
+}
+.inventory-item {
+    padding: 5px 7px;
+    display: flex;
+    justify-content: space-between;
+    background-clip: padding-box;
+}
+.inventory-item > .item-amount {
+    font-weight: bold;
 }

@@ -9,6 +9,8 @@ export let isGrounded = false;
 export const chunkSize = 16;
 export let gravity = 9.8 * 3;
 export let mine = {};
+export let mineCapValue = 0;
+export let mineCapMax = 100000;
 
 export function getBlock(pos) {
     let chunk = getChunkID(pos);
@@ -21,7 +23,9 @@ export function setBlock(pos, data) {
     let chunk = getChunkID(pos);
     if (!mine[chunk]) mine[chunk] = {}
     let subpos = getChunkSubpos(pos);
+    mineCapValue -= getCap(mine[chunk][subpos]);
     mine[chunk][subpos] = data;
+    mineCapValue += getCap(mine[chunk][subpos]);
     mine[chunk].dirty = true;
 }
 
@@ -50,6 +54,11 @@ export function resetMine() {
 
 export function mineAt(pos, drops = true) {
     if (drops) {
+        let block = getBlock(pos);
+        if (block) {
+            save.data.inv.normal[block.type] ??= 0
+            save.data.inv.normal[block.type]++;
+        }
         save.data.stats.blockMined++;
     }
     setBlock(pos, null)
@@ -58,6 +67,12 @@ export function mineAt(pos, drops = true) {
         add.add(pos);
         if (getBlock(add) === undefined && add.y <= 0) setBlock(add, {type: "stone"});
     }
+}
+
+export function getCap(thing) {
+    if (thing === null) return 1;
+    if ((typeof thing) == "object") return 20;
+    return 0;
 }
 
 export let faces = {
@@ -193,9 +208,9 @@ export function doPhysics(delta) {
     for (let a = 0; a < 4; a++) {
         let start = new _3.Vector3(), end = new _3.Vector3();
         start.copy(playerPos).add(new _3.Vector3(
-            (faceUVs["+x"][a * 2] * 2 - 1) * playerWidth,
+            (faceUVs["+x"][a * 2] * 2 - 1) * playerWidth * .98,
             startOfs,
-            (faceUVs["+x"][a * 2 + 1] * 2 - 1) * playerWidth
+            (faceUVs["+x"][a * 2 + 1] * 2 - 1) * playerWidth * .98
         ));
         end.copy(start).add(new _3.Vector3(0, drop, 0));
         let intersect = raycast(start, end);
@@ -218,7 +233,7 @@ export function doPhysics(delta) {
     // Get x-z velocity
     let moveVel = new _3.Vector3(input.targetSpeed[0], 0, input.targetSpeed[1]);
     moveVel.applyEuler(new _3.Euler(0, viewCamera.rotation.y, 0)).normalize().multiplyScalar(-8);
-    let friction = delta * 25;
+    let friction = delta * 50;
     let moveDelta = new _3.Vector3(
         moveVel.x - playerVel.x,
         0,
@@ -286,5 +301,4 @@ export function doPhysics(delta) {
     }
 }
 
-window.mine = mine;
 resetMine();
