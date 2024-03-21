@@ -217,23 +217,30 @@ export function doPhysics(delta) {
     
     // Get x-z velocity
     let moveVel = new _3.Vector3(input.targetSpeed[0], 0, input.targetSpeed[1]);
-    moveVel.applyEuler(new _3.Euler(0, viewCamera.rotation.y, 0)).normalize().multiplyScalar(-5);
+    moveVel.applyEuler(new _3.Euler(0, viewCamera.rotation.y, 0)).normalize().multiplyScalar(-8);
     let friction = delta * 25;
-    playerVel.x += _3.MathUtils.clamp(moveVel.x - playerVel.x, -friction, friction);
-    playerVel.z += _3.MathUtils.clamp(moveVel.z - playerVel.z, -friction, friction);
-    console.log(moveVel);
+    let moveDelta = new _3.Vector3(
+        moveVel.x - playerVel.x,
+        0,
+        moveVel.z - playerVel.z
+    )
+    let length = moveDelta.length();
+    if (length > friction) moveDelta.normalize().multiplyScalar(friction);
+    playerVel.add(moveDelta);
+    
+    let uvs = [0, 1, 0.5, 1, 1, 1, 0, -1, 0.5, -1, 1, -1];
     
     // Move x
     if (playerVel.x) {
         let move = playerVel.x * delta;
         let maxX = Infinity * Math.sign(move);
-        let startOfs = drop > 0 ? playerWidth : -playerWidth;
-        for (let a = 0; a < 4; a++) {
+        let startOfs = move > 0 ? playerWidth : -playerWidth;
+        for (let a = 0; a < uvs.length; a += 2) {
             let start = new _3.Vector3(), end = new _3.Vector3();
             start.copy(playerPos).add(new _3.Vector3(
                 startOfs,
-                faceUVs["+x"][a * 2] * playerHeight,
-                (faceUVs["+x"][a * 2 + 1] * 2 - 1) * playerWidth
+                uvs[a] * playerHeight,
+                uvs[a + 1] * playerWidth,
             ));
             end.copy(start).add(new _3.Vector3(move, 0, 0));
             let intersect = raycast(start, end);
@@ -254,12 +261,12 @@ export function doPhysics(delta) {
     if (playerVel.z) {
         let move = playerVel.z * delta;
         let maxZ = Infinity * Math.sign(move);
-        let startOfs = drop > 0 ? playerWidth : -playerWidth;
-        for (let a = 0; a < 4; a++) {
+        let startOfs = move > 0 ? playerWidth : -playerWidth;
+        for (let a = 0; a < uvs.length; a += 2) {
             let start = new _3.Vector3(), end = new _3.Vector3();
             start.copy(playerPos).add(new _3.Vector3(
-                (faceUVs["+x"][a * 2 + 1] * 2 - 1) * playerWidth,
-                faceUVs["+x"][a * 2] * playerHeight,
+                uvs[a + 1] * playerWidth,
+                uvs[a] * playerHeight,
                 startOfs
             ));
             end.copy(start).add(new _3.Vector3(0, 0, move));
