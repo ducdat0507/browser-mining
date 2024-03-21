@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:root {
+    --font-family: Arial, sans-serif;
+    --font-size: 12px;
+}
+
+body {
+    background: black;
+    color: white;
+
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: 1.2;
+}
+
+
+/* -------------------------------------------------- Common classes
+*/
+.fill-screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* -------------------------------------------------- View canvas
+*/
+#view-canvas {
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+/* -------------------------------------------------- Splash text
+*/
+#splash {
+    padding-top: 50px;
+    font-size: 24px;
+    text-align: center;
+    pointer-events: none;
+    line-height: 1;
+    text-shadow: -25px 1px 20px black, 0 1px 20px black, 25px 1px 20px black;
+}
+#splash small {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+/* -------------------------------------------------- Topbar
+*/
+#topbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    display: flex;
+    padding: 5px;
+}
+
+#topbar .tally {
+    min-width: 200px;
+    background: #0007;
+    border: 1px solid #aaaa;
+    border-radius: 5px;
+    padding: 5px 7px;
+    display: flex;
+    justify-content: space-between;
+}
+#topbar .tally-title {
+    text-align: left;
+}
+#topbar .tally-value {
+    font-weight: bold;
+}
+
+/* -------------------------------------------------- Cursor lock indicator
+*/
+.cursor-lock {
+    pointer-events: none;
+    background: #fff7;
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
