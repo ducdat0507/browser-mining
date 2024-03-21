@@ -27,6 +27,7 @@ export function init() {
     topbar.append(mineTally);
 
     spawnWindow("inventory");
+    spawnWindow("intro");
 
     splash = document.getElementById("splash");
 }
@@ -62,6 +63,7 @@ export let create = {
 export function spawnWindow(type) {
     let window = document.createElement("div");
     window.classList.add("window");
+    window.close = () => closeWindow(window);
     
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("window-title");
@@ -79,4 +81,10 @@ export function spawnWindow(type) {
     windows.push(window);
     document.body.append(window);
     return window;
+}
+
+export function closeWindow(window) {
+    let index = windows.indexOf(window);
+    windows.splice(index, 1);
+    window.remove();
 }

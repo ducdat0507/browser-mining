@@ -2,7 +2,7 @@ export let data = {}
 
 export function init() {
     data = getStartPlayer();
-    window.player = data;
+    // window.player = data;
 }
 
 function getStartPlayer() {

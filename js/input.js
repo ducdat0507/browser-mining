@@ -7,7 +7,7 @@ export let targetSpeed = [0, 0], isJumping = false;
 
 export function init() {
     let view = document.getElementById("view-canvas")
-    view.addEventListener("contextmenu", (e) => {
+    window.addEventListener("contextmenu", (e) => {
         e.preventDefault();
     })
 
