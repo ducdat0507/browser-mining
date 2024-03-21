@@ -1,6 +1,7 @@
 import * as _3 from "three";
 import * as save from "./save.js";
 import * as input from "./input.js";
+import ores from "./data/ores.js";
 import { viewCamera } from "./renderer.js";
 
 export let playerPos = new _3.Vector3(0.5, -2, 0.5);
@@ -65,8 +66,20 @@ export function mineAt(pos, drops = true) {
     for (let face in faces) {
         let add = new _3.Vector3(faces[face][0], faces[face][1], faces[face][2])
         add.add(pos);
-        if (getBlock(add) === undefined && add.y <= 0) setBlock(add, {type: "stone"});
+        if (getBlock(add) === undefined && add.y <= 0) setBlock(add, generateOre(pos));
     }
+}
+
+let oreTower = Object.keys(ores).filter(x => ores[x].rarity).sort((x, y) => ores[x].rarity - ores[y].rarity);
+export function generateOre(pos)
+{
+    let rng = Math.random();
+    let rngSum = 0;
+    for (let ore of oreTower) {
+        rngSum += 1 / ores[ore].rarity;
+        if (rng < rngSum) return {type: ore}
+    }
+    return {type: "stone"}
 }
 
 export function getCap(thing) {

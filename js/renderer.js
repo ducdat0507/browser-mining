@@ -2,6 +2,8 @@ import * as _3 from 'three'
 import * as scene from './scene.js'
 import * as input from './input.js'
 import { res } from './resources.js'
+import ores from './data/ores.js'
+import maps from './data/texmaps.js'
 
 let viewCanvas, viewRenderer, viewScene, viewCursor;
 export let viewCamera;
@@ -34,15 +36,7 @@ export function initView() {
     const light2 = new _3.AmbientLight(0xffffff, 1);
     viewScene.add(light2);
 
-    materials.basic = new _3.MeshLambertMaterial( { 
-        map: res.ores.stone,
-        transparent: true,
-        flatShading: true
-    } );
-    materials.cursor = new _3.MeshLambertMaterial( { 
-        map: res.ores.stone,
-        flatShading: true
-    } );
+    for (let mat in maps) materials[mat] = maps[mat].get();
 
     {
         const geometry = new _3.BoxGeometry(1.0001, 1.0001, 1.0001);
@@ -173,14 +167,15 @@ function getChunkGeometryData(chunkPos, chunk) {
     for (let z = 0; z < scene.chunkSize; z++) {
         let pos = x + y * scene.chunkSize + z * scene.chunkSize * scene.chunkSize;
         let max = scene.chunkSize * scene.chunkSize * scene.chunkSize;
-        if (chunk[pos]) {
+        let map;
+        if (chunk[pos] && (map = ores[chunk[pos].type].map)) {
             for (let faceID in scene.faces) {
                 let face = scene.faces[faceID];
                 let facePos = 
                     x + face[0] +  
                     (y + face[1]) * scene.chunkSize +
                     (z + face[2]) * scene.chunkSize * scene.chunkSize;
-                if (facePos < 0 || facePos >= max || !chunk[facePos]) {
+                if (facePos < 0 || facePos >= max || !chunk[facePos] || !ores[chunk[facePos].type].map) {
                     const ndx = positions.length / 3;
                     for (let corner of scene.faceCorners[faceID]) {
                         positions.push(corner[0] + x, corner[1] + y, corner[2] + z);
@@ -190,7 +185,12 @@ function getChunkGeometryData(chunkPos, chunk) {
                         ndx, ndx + 1, ndx + 2,
                         ndx + 2, ndx + 1, ndx + 3,
                     );
-                    uvs.push(...scene.faceUVs[faceID]);
+                    for (let a = 0; a < 8; a += 2) {
+                        uvs.push(
+                            (map[2] + scene.faceUVs[faceID][a]) / maps[map[0]].rows,
+                            1 - (map[1] + scene.faceUVs[faceID][a + 1]) / maps[map[0]].cols
+                        );
+                    }
                     counter++;
                 }
             }
