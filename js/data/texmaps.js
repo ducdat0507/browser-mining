@@ -13,5 +13,17 @@ export default {
         },
         rows: 4,
         cols: 4,
-    }
+    },
+    "wip": {
+        get() {
+            return new _3.MeshBasicMaterial({ 
+                map: res.textures.wip,
+                side: _3.DoubleSide,
+                transparent: true,
+                flatShading: true,
+            });
+        },
+        rows: 1,
+        cols: 1,
+    },
 }

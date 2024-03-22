@@ -45,6 +45,7 @@ export function initView() {
 
         const material = new _3.LineBasicMaterial ({
             color: 0xFFFFFF,
+            linewidth: 5,
         })
 
         viewCursor = new _3.LineSegments( wireframe, material );
@@ -98,8 +99,31 @@ export function updateView() {
                         geometry: new _3.BufferGeometry()
                     };
                 }
-                let {positions, normals, indices, uvs} = getChunkGeometryData(pos, chunk);
-
+                let data = getChunkGeometryData(pos, chunk);
+                let positions, normals, indices, uvs;
+                
+                let matList = [];
+                viewMeshes[id].geometry.clearGroups();
+                let index = 0;
+                for (let group in data.groups) {
+                    let start = (indices?.length ?? 0);
+                    let len = data.groups[group].indices.length;
+                    if (!positions) {
+                        positions = data.groups[group].positions;
+                        normals = data.groups[group].normals;
+                        indices = data.groups[group].indices;
+                        uvs = data.groups[group].uvs;
+                    } else {
+                        let indexOffset = positions.length / 3;
+                        indices.push(...data.groups[group].indices.map(x => x + indexOffset));
+                        positions.push(...data.groups[group].positions);
+                        normals.push(...data.groups[group].normals);
+                        uvs.push(...data.groups[group].uvs);
+                    }
+                    viewMeshes[id].geometry.addGroup(start, len, index);
+                    matList.push(materials[group])
+                    index++;
+                }
                 viewMeshes[id].geometry.setAttribute('position',
                     new _3.BufferAttribute(new Float32Array(positions), 3)
                 );
@@ -111,8 +135,10 @@ export function updateView() {
                 );
                 viewMeshes[id].geometry.setIndex(indices);
                 viewMeshes[id].geometry.computeBoundingSphere();
+                
+                console.log(indices.length, "\n", viewMeshes[id].geometry, "\n", matList, "\n", data);
 
-                viewMeshes[id].mesh = new _3.Mesh(viewMeshes[id].geometry, materials.basic);
+                viewMeshes[id].mesh = new _3.Mesh(viewMeshes[id].geometry, matList);
                 viewMeshes[id].frustumCulled = false;
                 viewMeshes[id].mesh.position.set(x * scene.chunkSize, y * scene.chunkSize, z * scene.chunkSize);
                 viewScene.add(viewMeshes[id].mesh);
@@ -133,8 +159,6 @@ export function updateView() {
     viewCamera.position.y += 1.6;
 
     // Get currently highlighted block
-    document.getElementById("splash").innerHTML = "";
-
     if (input.mouseIn) {
         let start = new _3.Vector3(), end = new _3.Vector3();
         start.setFromMatrixPosition(viewCamera.matrixWorld);
@@ -152,14 +176,13 @@ export function updateView() {
         viewCursor.position.add(new _3.Vector3(0.5, 0.5, 0.5));
     } else {
         viewCursor.position.set(NaN, NaN, NaN);
-        document.getElementById("splash").innerHTML += "";
     }
 
     viewRenderer.render(viewScene, viewCamera);
 }
 
 function getChunkGeometryData(chunkPos, chunk) {
-    let positions = [], normals = [], indices = [], uvs = [];
+    let data = {groups: {}};
     let counter = 0;
 
     for (let x = 0; x < scene.chunkSize; x++)
@@ -169,6 +192,10 @@ function getChunkGeometryData(chunkPos, chunk) {
         let max = scene.chunkSize * scene.chunkSize * scene.chunkSize;
         let map;
         if (chunk[pos] && (map = ores[chunk[pos].type].map)) {
+            if (!data.groups[map[0]]) {
+                data.groups[map[0]] = { positions: [], normals: [], indices: [], uvs: [] }
+            }
+            let { positions, normals, indices, uvs } = data.groups[map[0]];
             for (let faceID in scene.faces) {
                 let face = scene.faces[faceID];
                 let facePos = 
@@ -196,5 +223,5 @@ function getChunkGeometryData(chunkPos, chunk) {
             }
         }
     }
-    return {positions, normals, indices, uvs};
+    return data;
 }

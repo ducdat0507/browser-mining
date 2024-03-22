@@ -79,12 +79,18 @@ export function generateOre(pos)
     // Ores
     let rng = Math.random();
     let rngSum = 0;
+    function isEligible(ore) {
+        return (!ores[ore].range || (-pos.y >= ores[ore].range[0] && -pos.y < ores[ore].range[1]));
+    }
     for (let ore of oreTower) {
-        rngSum += 1 / ores[ore].rarity;
-        if (rng < rngSum) return {type: ore}
+        if (isEligible(ore)) {
+            rngSum += 1 / ores[ore].rarity;
+            if (rng < rngSum) return {type: ore}
+        }
     }
 
     // Layer block
+    //        0       1000       2000       3000      4000       5000        6000      7000
     let list = ["stone", "bedrock", "diorite", "marble", "granite", "obsidian", "mantle", "magma"];
     return {type: list[_3.MathUtils.clamp(Math.floor(Math.random() * 0.1 - pos.y / 1000 - 0.05), 0, list.length - 1)]}
 }
