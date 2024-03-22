@@ -188,3 +188,36 @@ button {
 .inventory-item[tier="0"] {
     background: linear-gradient(90deg, #666, #6667);
 }
+.inventory-item[tier="1"] {
+    background: linear-gradient(90deg, #55f, #55f7);
+}
+.inventory-item[tier="2"] {
+    background: linear-gradient(90deg, #4a4, #4a47);
+}
+.inventory-item[tier="3"] {
+    background: linear-gradient(90deg, #a4f, #a4f7);
+}
+.inventory-item[tier="4"] {
+    background: linear-gradient(90deg, #4aa, #4aa7);
+}
+.inventory-item[tier="5"] {
+    background: linear-gradient(90deg, #d57, #d577);
+}
+.inventory-item[tier="6"] {
+    background: linear-gradient(90deg, #993, #9937);
+}
+.inventory-item[tier="7"] {
+    background: linear-gradient(90deg, #a63, #a637);
+}
+.inventory-item[tier="8"] {
+    background: linear-gradient(90deg, #48c, #68a7);
+}
+.inventory-item[tier="9"] {
+    background: linear-gradient(90deg, #248, #6267);
+}
+.inventory-item[tier="10"] {
+    background: linear-gradient(90deg, #824, #4287);
+}
+.inventory-item[tier="11"] {
+    background: linear-gradient(90deg, #112, #2117);
+}

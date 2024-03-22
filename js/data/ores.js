@@ -162,51 +162,51 @@ export default ores = {
 }
 
 export let tiers = [
-    {
+    { // 0
         from: 1,
         name: "Common"
     },
-    {
+    { // 1
         from: 1_000,
         name: "Uncommon"
     },
-    {
+    { // 2
         from: 15_000,
         name: "Rare"
     },
-    {
+    { // 3
         from: 40_000,
         name: "Scarce"
     },
-    {
+    { // 4
         from: 120_000,
         name: "Exotic"
     },
-    {
+    { // 5
         from: 500_000,
         name: "Marvellous"
     },
-    {
+    { // 6
         from: 1_000_000,
         name: "Legendary"
     },
-    {
+    { // 7
         from: 7_500_000,
         name: "Mythical"
     },
-    {
+    { // 8
         from: 20_000_000,
         name: "Enigmatic"
     },
-    {
+    { // 9
         from: 80_000_000,
         name: "Celestial"
     },
-    {
+    { // 10
         from: 250_000_000,
         name: "Otherworldly"
     },
-    {
+    { // 11
         from: 750_000_000,
         name: "Unfathomable"
     },
