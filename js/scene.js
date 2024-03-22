@@ -11,7 +11,7 @@ export const chunkSize = 16;
 export let gravity = 9.8 * 3;
 export let mine = {};
 export let mineCapValue = 0;
-export let mineCapMax = 100000;
+export let mineCapMax = 1000000;
 
 export function getBlock(pos) {
     let chunk = getChunkID(pos);
@@ -54,8 +54,9 @@ export function resetMine() {
 }
 
 export function mineAt(pos, drops = true) {
+    let block = getBlock(pos);
+    if (block?.type == "barrier") return;
     if (drops) {
-        let block = getBlock(pos);
         if (block) {
             save.data.inv.normal[block.type] ??= 0
             save.data.inv.normal[block.type]++;
@@ -66,25 +67,31 @@ export function mineAt(pos, drops = true) {
     for (let face in faces) {
         let add = new _3.Vector3(faces[face][0], faces[face][1], faces[face][2])
         add.add(pos);
-        if (getBlock(add) === undefined && add.y <= 0) setBlock(add, generateOre(pos));
+        if (getBlock(add) === undefined && add.y <= 0) setBlock(add, generateOre(add));
     }
 }
 
 let oreTower = Object.keys(ores).filter(x => ores[x].rarity).sort((x, y) => ores[x].rarity - ores[y].rarity);
 export function generateOre(pos)
 {
+    if (pos.y < -8000) return {type: "barrier"}
+
+    // Ores
     let rng = Math.random();
     let rngSum = 0;
     for (let ore of oreTower) {
         rngSum += 1 / ores[ore].rarity;
         if (rng < rngSum) return {type: ore}
     }
-    return {type: "stone"}
+
+    // Layer block
+    let list = ["stone", "bedrock", "diorite", "marble", "granite", "obsidian", "mantle", "magma"];
+    return {type: list[_3.MathUtils.clamp(Math.floor(Math.random() * 0.1 - pos.y / 1000 - 0.05), 0, list.length - 1)]}
 }
 
 export function getCap(thing) {
     if (thing === null) return 1;
-    if ((typeof thing) == "object") return 20;
+    if (thing) return 20;
     return 0;
 }
 

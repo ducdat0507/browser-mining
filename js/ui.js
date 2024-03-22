@@ -35,7 +35,7 @@ export function init() {
 export function update() {
     topbar.$block.$value.textContent = format(data.stats.blockMined);
     topbar.$depth.$value.textContent = format(-scene.playerPos.y) + "m";
-    topbar.$mine.$value.textContent = format(scene.mineCapValue / scene.mineCapMax) + "%";
+    topbar.$mine.$value.textContent = format(Math.floor(scene.mineCapValue / scene.mineCapMax * 100)) + "%";
 
     for (let window of windows) windowTypes[window.$type].update(window);
 }

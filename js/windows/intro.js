@@ -21,10 +21,10 @@ export function build(window) {
             Some rough instructions:
         </div>
         <div class="intro-instructions">
-            <div><big>WASD<br>keys</big><div><br>to move</div></div>
+            <div><big>W/A/S/D<br>keys</big><div><br>to move</div></div>
             <div><big>Space<br>key</big><div><br>to jump</div></div>
-            <div><big>L. click<br>+ hold</big><div><br>to mine blocks</div></div>
-            <div><big>R. click<br>+ drag</big><div><br>to rotate camera</div></div>
+            <div><big>Left<br>click+hold</big><div><br>to mine blocks</div></div>
+            <div><big>Right<br>click+drag</big><div><br>to rotate camera</div></div>
         </div>
         <div style="text-align:center;padding-top:20px">
             This game is still a WIP, stay tuned for updates!

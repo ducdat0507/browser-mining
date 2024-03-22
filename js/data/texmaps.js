@@ -11,7 +11,7 @@ export default {
                 flatShading: true,
             });
         },
-        rows: 2,
-        cols: 2,
+        rows: 4,
+        cols: 4,
     }
 }

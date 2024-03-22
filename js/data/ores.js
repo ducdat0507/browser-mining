@@ -5,6 +5,38 @@ export default ores = {
         name: "Stone",
         map: ["basic", 0, 0],
     },
+    "bedrock": {
+        name: "Bedrock",
+        map: ["basic", 0, 2],
+    },
+    "diorite": {
+        name: "Diorite",
+        map: ["basic", 1, 2],
+    },
+    "marble": {
+        name: "Marble",
+        map: ["basic", 2, 2],
+    },
+    "granite": {
+        name: "Granite",
+        map: ["basic", 2, 1],
+    },
+    "obsidian": {
+        name: "Obsidian",
+        map: ["basic", 2, 0],
+    },
+    "mantle": {
+        name: "Mantle",
+        map: ["basic", 3, 0],
+    },
+    "magma": {
+        name: "Magma",
+        map: ["basic", 3, 1],
+    },
+    "barrier": {
+        name: "Barrier",
+        map: ["basic", 3, 2],
+    },
     "coal": {
         name: "Coal",
         rarity: 30,
@@ -36,5 +68,5 @@ export let tiers = [
 for (let ore in ores) {
     if (ores[ore].rarity) ores[ore].tier = tiers.findLastIndex(x => (x.from <= ores[ore].rarity));
     else ores[ore].tier = -1;
-    console.log(ore, ores[ore].rarity, ores[ore].tier)
+    // console.log(ore, ores[ore].rarity, ores[ore].tier)
 }
