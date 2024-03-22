@@ -215,5 +215,4 @@ export let tiers = [
 for (let ore in ores) {
     if (ores[ore].rarity) ores[ore].tier = tiers.findLastIndex(x => (x.from <= ores[ore].rarity));
     else ores[ore].tier = -1;
-    console.log(ore, ores[ore].rarity, ores[ore].tier)
 }
