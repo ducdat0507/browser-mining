@@ -135,8 +135,6 @@ export function updateView() {
                 );
                 viewMeshes[id].geometry.setIndex(indices);
                 viewMeshes[id].geometry.computeBoundingSphere();
-                
-                console.log(indices.length, "\n", viewMeshes[id].geometry, "\n", matList, "\n", data);
 
                 viewMeshes[id].mesh = new _3.Mesh(viewMeshes[id].geometry, matList);
                 viewMeshes[id].frustumCulled = false;
