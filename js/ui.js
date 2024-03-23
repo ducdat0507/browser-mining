@@ -1,10 +1,12 @@
+import ores from "./data/ores.js";
 import format from "./format.js";
 import { targetSpeed } from "./input.js";
+import { currentBlock } from "./renderer.js";
 import { data } from "./save.js";
 import * as scene from "./scene.js";
 import windowTypes from "./windows/index.js";
 
-export let topbar, splash;
+export let topbar, splash, blockInd;
 
 export let windows = [];
 
@@ -12,6 +14,10 @@ export function init() {
     topbar = document.createElement("div");
     topbar.id = "topbar";
     document.body.append(topbar);
+
+    blockInd = document.createElement("div");
+    blockInd.id = "block-identifier";
+    document.body.append(blockInd);
 
     let blockTally = create.tally("Blocks mined");
     blockTally.style.width = "200px";
@@ -37,6 +43,15 @@ export function update() {
     topbar.$depth.$value.textContent = format(-scene.playerPos.y) + "m";
     topbar.$mine.$value.textContent = format(Math.floor(scene.mineCapValue / scene.mineCapMax * 100)) + "%";
 
+    if (currentBlock) {
+        let oreData = ores[currentBlock.block.type];
+        blockInd.classList.remove("hidden");
+        blockInd.setAttribute("tier", oreData.tier);
+        blockInd.textContent = oreData.name;
+    } else {
+        blockInd.classList.add("hidden");
+    }
+
     for (let window of windows) windowTypes[window.$type].update(window);
 }
 
@@ -60,7 +75,7 @@ export let create = {
     },
 }
 
-export function spawnWindow(type) {
+export function spawnWindow(type, options, ...args) {
     let window = document.createElement("div");
     window.classList.add("window");
     window.close = () => closeWindow(window);
@@ -76,7 +91,14 @@ export function spawnWindow(type) {
     window.append(contentDiv);
 
     window.$type = type;
-    windowTypes[type].build(window);
+    windowTypes[type].build(window, ...args);
+
+    if (options?.cover) {
+        let cover = document.createElement("div");
+        cover.classList.add("window-cover");
+        window.$cover = cover;
+        document.body.append(cover);
+    }
 
     windows.push(window);
     document.body.append(window);
@@ -86,5 +108,6 @@ export function spawnWindow(type) {
 export function closeWindow(window) {
     let index = windows.indexOf(window);
     windows.splice(index, 1);
+    if (window.$cover) window.$cover.remove();
     window.remove();
 }

@@ -5,12 +5,22 @@ import * as scene from './scene.js';
 import * as ui from './ui.js';
 import * as save from './save.js';
 
+let logicHandle, renderHandle;
+
 document.addEventListener("DOMContentLoaded", () => {
     time = performance.now();
+
     resources.loadResources();
     input.init();
     save.init();
-    setInterval(logicLoop, 16);
+
+    window.addEventListener("error", (e) => {
+        clearInterval(logicHandle);
+        cancelAnimationFrame(renderHandle);
+        ui.spawnWindow("error", {cover:true}, e.error);
+    })
+
+    logicHandle = setInterval(logicLoop, 16);
     renderLoop();
 });
 
@@ -21,7 +31,7 @@ function logicLoop() {
     delta = performance.now() - time;
     time += delta;
     delta /= 1000;
-    if (scene.mine) scene.doPhysics(delta);
+    if (renderer.isReady && scene.mine) scene.doPhysics(delta);
 }
 
 function renderLoop() {
@@ -29,5 +39,5 @@ function renderLoop() {
         renderer.updateView();
         ui.update();
     }
-    requestAnimationFrame(renderLoop);
+    renderHandle = requestAnimationFrame(renderLoop);
 }

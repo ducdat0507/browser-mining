@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
     user-select: none;
+    scrollbar-width: thin;
+    scrollbar-color: #fff7 #fff3;
 }
 
 :root {
@@ -25,6 +27,13 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
+}
+.scrollable {
+    max-width: 100%;
+    overflow: hidden auto;
+}
+.base-padding {
+    padding: 5px 7px;
 }
 
 button {
@@ -74,7 +83,7 @@ button {
     background: #000a;
     border: 1px solid #aaaa;
     border-radius: 5px;
-    box-shadow: 0 0 1px #0007;
+    box-shadow: 0 0 1px #000;
     padding: 5px 7px;
     display: flex;
     justify-content: space-between;
@@ -99,6 +108,26 @@ button {
     transform: translate(-50%, -50%);
 }
 
+/* -------------------------------------------------- Current block identifier
+*/
+#block-identifier {
+    pointer-events: none;
+    background: var(--tier-background), linear-gradient(#000c, #000c);
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    border-radius: 5px;
+    box-shadow: 0 0 4px #000;
+    border: 1px solid #aaaa;
+    padding: 5px 7px;
+    transform: translate(-50%, -50%);
+}
+#block-identifier.hidden {
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+
 /* -------------------------------------------------- Windows
 */
 .window {
@@ -107,28 +136,31 @@ button {
     background: #000c;
     border: 1px solid #aaaa;
     border-radius: 5px;
-    box-shadow: 0 0 1px #0007;
+    box-shadow: 0 0 4px #000;
     overflow: hidden;
-    display: flex;
+    display: grid;
     flex-direction: column;
+    grid-template-rows: calc(1.2em + 10px) 1fr;
 }
 .window > .window-title {
     background: linear-gradient(#333a, #111a);
     border-bottom: 1px solid #aaaa;
+    box-shadow: inset 0 0 3px #fff3;
     padding: 5px 7px;
     flex: 0 0;
     font-weight: bold;
+    display: flex;
+    justify-content: justify;
 }
 .window > .window-title > .close-button {
-    float: right;
     width: 40px;
-    height: calc(100% + 10px);
-    margin: -5px -7px -5px 0;
+    margin: -5px -7px -5px auto;
     padding: 0;
     border: none;
-    border-left: 1px solid #aaaa;
+    border-left: 1px solid #aaa7;
     border-radius: 0px;
     background: linear-gradient(#711, #311);
+    box-shadow: 0 0 3px #fff3;
 
     &:hover {
         background: linear-gradient(#c22, #511);
@@ -143,7 +175,13 @@ button {
 }
 .window > .window-content {
     position: relative;
-    flex: 1 1;
+    max-height: 100%;
+    flex: 0 1 0px;
+}
+.window-cover {
+    position: fixed;
+    inset: 0;
+    background: #000a;
 }
 
 /* -------------------------------------------------- Intro
@@ -177,47 +215,50 @@ button {
     display: flex;
     justify-content: space-between;
     background-clip: padding-box;
+    background:  var(--tier-background);
 }
 .inventory-item > .item-amount {
     font-weight: bold;
 }
 
-.inventory-item[tier="-1"] {
-    background: linear-gradient(90deg, #333, #3337);
+/* -------------------------------------------------- Rarity tiers
+*/
+[tier="-1"] {
+    --tier-background: linear-gradient(90deg, #333, #3333);
 }
-.inventory-item[tier="0"] {
-    background: linear-gradient(90deg, #666, #6667);
+[tier="0"] {
+    --tier-background: linear-gradient(90deg, #666, #6663);
 }
-.inventory-item[tier="1"] {
-    background: linear-gradient(90deg, #55f, #55f7);
+[tier="1"] {
+    --tier-background: linear-gradient(90deg, #55f, #55f3);
 }
-.inventory-item[tier="2"] {
-    background: linear-gradient(90deg, #4a4, #4a47);
+[tier="2"] {
+    --tier-background: linear-gradient(90deg, #4a4, #4a43);
 }
-.inventory-item[tier="3"] {
-    background: linear-gradient(90deg, #a4f, #a4f7);
+[tier="3"] {
+    --tier-background: linear-gradient(90deg, #a4f, #a4f3);
 }
-.inventory-item[tier="4"] {
-    background: linear-gradient(90deg, #4aa, #4aa7);
+[tier="4"] {
+    --tier-background: linear-gradient(90deg, #4aa, #4aa3);
 }
-.inventory-item[tier="5"] {
-    background: linear-gradient(90deg, #d57, #d577);
+[tier="5"] {
+    --tier-background: linear-gradient(90deg, #d57, #d573);
 }
-.inventory-item[tier="6"] {
-    background: linear-gradient(90deg, #993, #9937);
+[tier="6"] {
+    --tier-background: linear-gradient(90deg, #993, #9933);
 }
-.inventory-item[tier="7"] {
-    background: linear-gradient(90deg, #a63, #a637);
+[tier="7"] {
+    --tier-background: linear-gradient(90deg, #a63, #a633);
 }
-.inventory-item[tier="8"] {
-    background: linear-gradient(90deg, #48c, #68a7);
+[tier="8"] {
+    --tier-background: linear-gradient(90deg, #48c, #68a3);
 }
-.inventory-item[tier="9"] {
-    background: linear-gradient(90deg, #248, #6267);
+[tier="9"] {
+    --tier-background: linear-gradient(90deg, #248, #6263);
 }
-.inventory-item[tier="10"] {
-    background: linear-gradient(90deg, #824, #4287);
+[tier="10"] {
+    --tier-background: linear-gradient(90deg, #824, #3263);
 }
-.inventory-item[tier="11"] {
-    background: linear-gradient(90deg, #112, #2117);
+[tier="11"] {
+    --tier-background: linear-gradient(90deg, #224, #4223);
 }
