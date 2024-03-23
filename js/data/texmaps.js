@@ -16,7 +16,7 @@ export default {
     },
     "wip": {
         get() {
-            return new _3.MeshBasicMaterial({ 
+            return new _3.MeshToonMaterial({ 
                 map: res.textures.wip,
                 side: _3.DoubleSide,
                 transparent: true,

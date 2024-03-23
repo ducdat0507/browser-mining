@@ -11,13 +11,11 @@ export let topbar, splash, blockInd;
 export let windows = [];
 
 export function init() {
+    //
+
     topbar = document.createElement("div");
     topbar.id = "topbar";
     document.body.append(topbar);
-
-    blockInd = document.createElement("div");
-    blockInd.id = "block-identifier";
-    document.body.append(blockInd);
 
     let blockTally = create.tally("Blocks mined");
     blockTally.style.width = "200px";
@@ -32,8 +30,35 @@ export function init() {
     topbar.$mine = mineTally;
     topbar.append(mineTally);
 
+    //
+
+    blockInd = document.createElement("div");
+    blockInd.id = "block-identifier";
+    document.body.append(blockInd);
+
+    //
+
+    let menus = {
+        options: "Options",
+    }
+
+    let menuY = 5;
+    for (let menu in menus) {
+        let menuBtn = document.createElement("button");
+        menuBtn.classList.add("menu-button");
+        menuBtn.style.right = "5px";
+        menuBtn.style.bottom = menuY + "px";
+        menuBtn.onclick = () => spawnWindow(menu, {unique: true});
+        document.body.append(menuBtn);
+        menuY += 55;
+    }
+
+    //
+
     spawnWindow("inventory");
     spawnWindow("intro");
+
+    //
 
     splash = document.getElementById("splash");
 }
@@ -76,6 +101,7 @@ export let create = {
 }
 
 export function spawnWindow(type, options, ...args) {
+    if (options?.unique && windows.find(x => x.$type == type)) return;
     let window = document.createElement("div");
     window.classList.add("window");
     window.close = () => closeWindow(window);

@@ -13,5 +13,8 @@ function getStartPlayer() {
         stats: {
             blockMined: 0,
         },
+        opt: {
+            invertMouse: [false, false]
+        }
     }
 }

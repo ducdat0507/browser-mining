@@ -1,6 +1,7 @@
 import * as _3 from 'three'
 import * as scene from './scene.js'
 import * as input from './input.js'
+import * as save from './save.js'
 import { res } from './resources.js'
 import ores from './data/ores.js'
 import maps from './data/texmaps.js'
@@ -59,8 +60,9 @@ export function initView() {
 }
 
 export function moveCamera(x, y) {
-    viewCamera.rotation.x = Math.max(Math.min(viewCamera.rotation.x + y / 128, Math.PI * 0.45), -Math.PI * 0.4);
-    viewCamera.rotation.y += x / 128;
+    let invert = save.data.opt.invertMouse;
+    viewCamera.rotation.x = Math.max(Math.min(viewCamera.rotation.x + y / 128 * (1 - invert[1] * 2), Math.PI * 0.45), -Math.PI * 0.4);
+    viewCamera.rotation.y += x / 128 * (1 - invert[0] * 2);
 }
 
 let width = 0, height = 0, realWidth = 0, realHeight = 0;
