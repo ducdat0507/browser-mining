@@ -7,7 +7,7 @@ export let res = {};
 
 export let progress = {lastLoaded: null, completed: 0, total: 0};
 
-export function loadResources() {
+export function loadResources(onDone, onProgress) {
     let list = Object.keys(maps);
     res.textures = {};
     let loaded = 0;
@@ -19,10 +19,10 @@ export function loadResources() {
         progress = {lastLoaded, completed, total};
     }
 
-    loadManager.onLoad = () =>{
-        renderer.initView();
-        ui.init();
-    }
+    loadManager.onProgress = onProgress;
+    loadManager.onLoad = onDone;
+
+    let count = 0;
 
     (async () => {
         for (let map of list) {
@@ -32,4 +32,6 @@ export function loadResources() {
             res.textures[map].colorSpace = _3.SRGBColorSpace;
         }
     })()
+
+    onProgress("", 0, list.length);
 }

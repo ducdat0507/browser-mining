@@ -1,12 +1,15 @@
 import * as save from "../save.js";
 import ores from "../data/ores.js";
 import format from "../format.js";
+import * as ui from "../ui.js";
+
+let hasChangeGraphics = false;
 
 export function build(window) {
     window.style.top = "50%";
     window.style.left = "50%";
     window.style.transform = "translate(-50%, -50%)";
-    window.style.width = "600px";
+    window.style.width = "720px";
     window.style.maxHeight = "80%";
 
     window.$title.textContent = "Options";
@@ -20,7 +23,8 @@ export function build(window) {
 
     let tabs = document.createElement("div");
     tabs.classList.add("options-tab-list");
-    window.$content.append(tabs);
+    window.insertBefore(tabs, window.$content);
+    window.$content.classList.add("scrollable");
 
     let content = document.createElement("form");
     content.classList.add("options-content");
@@ -49,18 +53,46 @@ let optionsTabs = {
         name: "Controls",
         build(content) {
             let group;
+
             content.append(group = create.group("Mouse"));
             group.append(create.toggleXY("Invert mouse", () => {
                 return save.data.opt.invertMouse
             }, (value) => {
                 save.data.opt.invertMouse = value;
             }));
+
+            content.append(group = create.group("Keyboard"));
+            group.append(create.button("Keybindings", "Open keybindings", () => {
+                return ui.spawnWindow("keybinds");
+            }));
+
         }
     },
     display: {
         name: "Display",
         build(content) {
+            let group;
 
+            content.append(group = create.group("Graphics"));
+            group.innerHTML += `
+                <div style='padding: 2px 2px 5px 2px'>
+                    <b>Note:</b> These options require a reload to be applied correctly.
+                </div>
+            `;
+            let applyButton;
+            group.append(create.toggle("Anti-aliasing", () => {
+                return save.data.opt.antialias
+            }, (value) => {
+                save.data.opt.antialias = value;
+                applyButton.disabled = false;
+                hasChangeGraphics = true;
+            }))
+            group.append(applyButton = create.button("Apply changes", "Reload game", () => {
+                document.location.reload();
+            }));
+            applyButton.style.paddingTop = "5px";
+            applyButton = applyButton.querySelector("button")
+            applyButton.disabled = !hasChangeGraphics;
         }
     },
     audio: {
@@ -98,9 +130,11 @@ let create = {
         item.append(labelDiv);
 
         let inputDiv = document.createElement("div");
+        inputDiv.classList.add("option-multi-toggle");
         item.append(inputDiv);
 
         let input = document.createElement("input");
+        labelDiv.htmlFor = input.id = Math.random();
         input.type = "checkbox";
         input.checked = get();
         input.oninput = () => set(input.checked);
@@ -146,6 +180,22 @@ let create = {
         labelY.htmlFor = inputY.id;
         labelY.textContent = "Y";
         inputDiv.append(labelY);
+
+        return item;
+    },
+    button(label, content, click) {
+        let item = document.createElement("div");
+        item.classList.add("option-item");
+
+        let labelDiv = document.createElement("label");
+        labelDiv.textContent = label;
+        item.append(labelDiv);
+
+        let button = document.createElement("button");
+        button.textContent = content;
+        button.onclick = click;
+        button.type = "button";
+        item.append(button);
 
         return item;
     }

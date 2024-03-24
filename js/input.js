@@ -1,12 +1,15 @@
 import { moveCamera, currentBlock } from "./renderer.js";
+import { data } from "./save.js";
 import * as scene from "./scene.js";
 
 export let mouseIn, mouseX, mouseY;
 export let interval = null;
 export let targetSpeed = [0, 0], isJumping = false;
 
+let targetKeybind = null, onKeybind = null;
+
 export function init() {
-    let view = document.getElementById("view-canvas")
+    let view = document.getElementById("view-canvas");
     window.addEventListener("contextmenu", (e) => {
         e.preventDefault();
     })
@@ -75,56 +78,93 @@ export function init() {
     
     // Keyboard input
     window.addEventListener("keydown", (e) => {
+        e.preventDefault();
         if (e.repeat) return;
-        if (e.key == "w") {
-            targetSpeed[1]++;
-            let upEvent = (e) => {
-                if (e.key == "w") {
-                    targetSpeed[1]--;
-                    window.removeEventListener("keyup", upEvent);
-                }
-            }
-            window.addEventListener("keyup", upEvent);
+        if (targetKeybind) {
+            data.opt.keybinds[targetKeybind] = e.key;
+            onKeybind(e.key);
+            targetKeybind = onKeybind = null;
         }
-        if (e.key == "s") {
-            targetSpeed[1]--;
-            let upEvent = (e) => {
-                if (e.key == "s") {
-                    targetSpeed[1]++;
-                    window.removeEventListener("keyup", upEvent);
+        for (let keybind in keybinds) {
+            let keybindData = keybinds[keybind];
+            let key = data.opt.keybinds[keybind] ?? keybindData.key;
+            if (e.key == key) {
+                keybindData.down();
+                let upEvent = (e) => {
+                    if (e.key == key) {
+                        keybindData.up?.();
+                        window.removeEventListener("keyup", upEvent);
+                    }
                 }
+                window.addEventListener("keyup", upEvent);
+                return;
             }
-            window.addEventListener("keyup", upEvent);
-        }
-        if (e.key == "a") {
-            targetSpeed[0]++;
-            let upEvent = (e) => {
-                if (e.key == "a") {
-                    targetSpeed[0]--;
-                    window.removeEventListener("keyup", upEvent);
-                }
-            }
-            window.addEventListener("keyup", upEvent);
-        }
-        if (e.key == "d") {
-            targetSpeed[0]--;
-            let upEvent = (e) => {
-                if (e.key == "d") {
-                    targetSpeed[0]++;
-                    window.removeEventListener("keyup", upEvent);
-                }
-            }
-            window.addEventListener("keyup", upEvent);
-        }
-        if (e.key == " ") {
-            isJumping = true;
-            let upEvent = (e) => {
-                if (e.key == " ") {
-                    isJumping = false;
-                    window.removeEventListener("keyup", upEvent);
-                }
-            }
-            window.addEventListener("keyup", upEvent);
         }
     })
+}
+
+export const keybinds = {
+    move_forw: {
+        name: "Move forward",
+        key: "w",
+        down() {
+            targetSpeed[1]++;
+        },
+        up() {
+            targetSpeed[1]--;
+        },
+    },
+    move_back: {
+        name: "Move backward",
+        key: "s",
+        down() {
+            targetSpeed[1]--;
+        },
+        up() {
+            targetSpeed[1]++;
+        },
+    },
+    move_left: {
+        name: "Move left",
+        key: "a",
+        down() {
+            targetSpeed[0]++;
+        },
+        up() {
+            targetSpeed[0]--;
+        },
+    },
+    move_right: {
+        name: "Move right",
+        key: "d",
+        down() {
+            targetSpeed[0]--;
+        },
+        up() {
+            targetSpeed[0]++;
+        },
+    },
+    jump: {
+        name: "Jump",
+        key: " ",
+        down() {
+            isJumping = true;
+        },
+        up() {
+            isJumping = false;
+        },
+    },
+}
+
+export const keybindGroups = {
+    "Movement": ["move_forw", "move_back", "move_left", "move_right", "jump"],
+}
+
+export function setKeybind(keybind, after) {
+    if (targetKeybind == keybind || !keybind) {
+        targetKeybind = onKeybind = null;
+    } else {
+        targetKeybind = keybind;
+        onKeybind = after;
+    }
 }

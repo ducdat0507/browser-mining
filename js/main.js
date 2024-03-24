@@ -10,27 +10,57 @@ let logicHandle, renderHandle;
 document.addEventListener("DOMContentLoaded", () => {
     time = performance.now();
 
-    resources.loadResources();
-    input.init();
-    save.init();
+    let loader = ui.spawnWindow("loader");
 
     window.addEventListener("error", (e) => {
         clearInterval(logicHandle);
         cancelAnimationFrame(renderHandle);
         ui.spawnWindow("error", {cover:true}, e.error);
     })
+    
+    loader.$action.textContent = "Loading save...";
+    loader.$progress.textContent = "";
 
-    logicHandle = setInterval(logicLoop, 16);
-    renderLoop();
+    save.init().then(() => {
+        resources.loadResources(() =>{
+            loader.close();
+            renderer.initView();
+            ui.init();
+        }, (_, prog, total) => {
+            loader.$bar.style.setProperty("--progress", prog / total * .9 + .1);
+            loader.$progress.textContent = prog + " / " + total;
+        });
+        input.init();
+
+        loader.$action.textContent = "Loading resources...";
+        loader.$bar.style.setProperty("--progress", .1);
+
+        logicHandle = setInterval(logicLoop, 16);
+        renderLoop();
+    })
+
+    window.addEventListener("unload", (e) => {
+        save.save();
+    })
+    
 });
 
 let time = performance.now();
 export let delta = 0;
 
+let saveTime = 0;
+
 function logicLoop() {
     delta = performance.now() - time;
     time += delta;
     delta /= 1000;
+
+    saveTime += delta;
+    if (saveTime > 15) {
+        save.save();
+        saveTime = 0;
+    }
+
     if (renderer.isReady && scene.mine) scene.doPhysics(delta);
 }
 

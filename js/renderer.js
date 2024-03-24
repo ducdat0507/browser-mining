@@ -17,7 +17,7 @@ export let isReady = false;
 export function initView() {  
     viewCanvas = document.getElementById("view-canvas");
     viewRenderer = new _3.WebGLRenderer({
-        antialias: true, 
+        antialias: save.data.opt.antialias, 
         canvas: viewCanvas
     });
     viewCamera = new _3.PerspectiveCamera(

@@ -6,7 +6,7 @@ export function build(window) {
     window.style.top = "50%";
     window.style.left = "50%";
     window.style.transform = "translate(-50%, -50%)";
-    window.style.width = "500px";
+    window.style.width = "540px";
     window.style.height = "300px";
 
     window.$title.textContent = "Welcome to Browser Mining!";
@@ -21,7 +21,7 @@ export function build(window) {
             Some rough instructions:
         </div>
         <div class="intro-instructions">
-            <div><big>W/A/S/D<br>keys</big><div><br>to move</div></div>
+            <div><big>W A S D<br>keys</big><div><br>to move</div></div>
             <div><big>Space<br>key</big><div><br>to jump</div></div>
             <div><big>Left<br>click+hold</big><div><br>to mine blocks</div></div>
             <div><big>Right<br>click+drag</big><div><br>to rotate camera</div></div>
