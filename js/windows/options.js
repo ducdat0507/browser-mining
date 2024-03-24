@@ -56,9 +56,10 @@ let optionsTabs = {
 
             content.append(group = create.group("Mouse"));
             group.append(create.toggleXY("Invert mouse", () => {
-                return save.data.opt.invertMouse
+                return save.data.opt.invertMouse;
             }, (value) => {
                 save.data.opt.invertMouse = value;
+                save.setDirty();
             }));
 
             content.append(group = create.group("Keyboard"));
@@ -86,8 +87,11 @@ let optionsTabs = {
                 save.data.opt.antialias = value;
                 applyButton.disabled = false;
                 hasChangeGraphics = true;
+                save.setDirty();
             }))
-            group.append(applyButton = create.button("Apply changes", "Reload game", () => {
+            group.append(applyButton = create.button("Apply changes", "Reload game", async () => {
+                applyButton.disabled = true;
+                await save.save();
                 document.location.reload();
             }));
             applyButton.style.paddingTop = "5px";

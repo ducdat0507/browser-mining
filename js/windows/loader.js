@@ -17,7 +17,7 @@ export function build(window) {
             <h1>Welcome to Browser Mining.</h1>
         </div>
         <div class="flavor-text">
-            ${flavorText[Math.floor(Math.random() * flavorText.length)]}
+            <div>${flavorText[Math.floor(Math.random() * flavorText.length)]}</div>
         </div>
         <div class="loading-bar">
             <div class="fill"></div>
@@ -35,8 +35,13 @@ export function build(window) {
 
 let flavorText = [
     "This is Browser Mining. You can mine anything!",
-    "Minecraft? Did you mean mine cap?",
-    "I wish I could play this game just like you, being a loading screen gets very boring sometimes.",
+    '"Minecraft"? Did you mean to say "mine cap"?',
+    "I wish I could play this game just like you, being a loading screen all the time gets pretty boring sometimes.",
+    'Also known as "My Instant Break Ability Is So Overpowered, No Block In This Voxel World Stands A Chance Against Me!"',
+    "Essential mining tip: Blocks break when you mine them. They also get put into your inventory when you collect them.",
+    "Tips, tips, how I can forget these tips...",
+    "What lacks in luck makes up for it with determination and vice versa, I think.",
+    "Here's a 4-leaf clover to wish you good luck finding rare ores: 🍀",
 ]
 
 export function update(window) {

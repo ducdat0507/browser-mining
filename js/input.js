@@ -1,5 +1,5 @@
 import { moveCamera, currentBlock } from "./renderer.js";
-import { data } from "./save.js";
+import * as save from "./save.js";
 import * as scene from "./scene.js";
 
 export let mouseIn, mouseX, mouseY;
@@ -81,13 +81,15 @@ export function init() {
         e.preventDefault();
         if (e.repeat) return;
         if (targetKeybind) {
-            data.opt.keybinds[targetKeybind] = e.key;
+            save.data.opt.keybinds[targetKeybind] = e.key;
+            save.setDirty();
             onKeybind(e.key);
             targetKeybind = onKeybind = null;
+            return;
         }
         for (let keybind in keybinds) {
             let keybindData = keybinds[keybind];
-            let key = data.opt.keybinds[keybind] ?? keybindData.key;
+            let key = save.data.opt.keybinds[keybind] ?? keybindData.key;
             if (e.key == key) {
                 keybindData.down();
                 let upEvent = (e) => {

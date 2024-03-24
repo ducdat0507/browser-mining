@@ -47,9 +47,9 @@ export function getChunkSubpos(pos) {
 
 export function resetMine() {
     for (let id in mine) delete mine[id];
-    for (let x = -2; x <= 2; x++)
+    for (let x = -5; x <= 5; x++)
     for (let y = -2; y <= 0; y++)
-    for (let z = -2; z <= 2; z++)
+    for (let z = -5; z <= 5; z++)
         mineAt(new _3.Vector3(x, y, z), false);
 }
 
@@ -60,6 +60,7 @@ export function mineAt(pos, drops = true) {
         if (block) {
             save.data.inv.normal[block.type] ??= 0
             save.data.inv.normal[block.type]++;
+            save.setDirty();
         }
         save.data.stats.blockMined++;
     }

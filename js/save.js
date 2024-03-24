@@ -1,4 +1,5 @@
 export let data = {}
+export let isDirty = false;
 
 export async function init() {
     let root = await navigator.storage.getDirectory();
@@ -6,13 +7,15 @@ export async function init() {
 }
 
 export async function save() {
+    isDirty = true;
     console.log("Game saving.")
     let root = await navigator.storage.getDirectory();
     let fileHandle = await root.getFileHandle("browser-mining", { create: true });
     let file = await fileHandle.createWritable();
     await file.write(JSON.stringify(data));
     await file.close();
-    console.log("Game saved.")
+    console.log("Game saved.");
+    isDirty = false;
 }
 
 export async function load() {
@@ -28,6 +31,10 @@ export async function load() {
         console.log(e);
         data = getStartPlayer();
     }
+}
+
+export function setDirty() {
+    isDirty = true;
 }
 
 function getStartPlayer() {

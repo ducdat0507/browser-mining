@@ -26,7 +26,7 @@ export function initView() {
         0.01,
         300
     );
-    viewCamera.rotation.set(Math.PI * 0.25, Math.PI * -0.25, 0, "ZYX");
+    viewCamera.rotation.set(Math.PI * 0.15, Math.PI * -0.25, 0, "ZYX");
     viewScene = new _3.Scene();
 
     const light = new _3.DirectionalLight(0xffffff, 3);

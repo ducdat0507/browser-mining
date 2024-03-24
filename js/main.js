@@ -38,11 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
         logicHandle = setInterval(logicLoop, 16);
         renderLoop();
     })
-
-    window.addEventListener("unload", (e) => {
-        save.save();
-    })
     
+    window.onbeforeunload = (e) => {
+        if (save.isDirty) return save.save();
+    }
+
+    window.onvisibilitychange = async (e) => {
+        if (document.visibilityState == "visible") {
+        } else {
+            await save.save();
+        }
+    }
 });
 
 let time = performance.now();
