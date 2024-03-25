@@ -1,6 +1,4 @@
 import * as save from "../save.js";
-import ores from "../data/ores.js";
-import format from "../format.js";
 
 export function build(window) {
     window.style.top = "50%";
@@ -15,9 +13,9 @@ export function build(window) {
     window.$content.style.padding = "7px";
     window.$content.innerHTML = `
         Are you sure you want to perform a hard reset? 
-        <b>This will completely wipe your progress without giving any boosts, secrets, nor anything special whatsoever.</b>
+        <b>This will completely wipe out your progress without giving any boosts, secrets, nor anything special whatsoever.</b>
         <br>
-        The game will copy your save into the clipboard in case you want to undo this change.
+        The game will export your current save into the clipboard beforehand in case you want to undo this change in the future.
         <br>
         <div class="option-multi-toggle" style="padding-top:7px">
             <input type="checkbox" checked id="reset-options">
@@ -32,6 +30,7 @@ export function build(window) {
     let actionYes = document.createElement("button");
     actionYes.textContent = "Confirm";
     actionYes.onclick = () => {
+        navigator.clipboard.write(save.getExportString());
         save.hardReset(window.querySelector("#reset-options").checked);
         window.$content.innerHTML = "Resetting your save...";
     }

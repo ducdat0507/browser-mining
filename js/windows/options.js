@@ -118,6 +118,9 @@ let optionsTabs = {
             let group;
 
             content.append(group = create.group("Storage actions"));
+            group.append(create.button("Save manipulation", "Import / Export save", () => {
+                ui.spawnWindow("saveManip", {cover: true});
+            }));
             group.append(create.button("Hard reset", "⚠ Reset game ⚠", () => {
                 ui.spawnWindow("saveReset", {cover: true});
             }));
