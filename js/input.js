@@ -78,6 +78,7 @@ export function init() {
     
     // Keyboard input
     window.addEventListener("keydown", (e) => {
+        if (document.activeElement?.tagName.toLowerCase() == "input" && e.key != "Tab") return;
         e.preventDefault();
         if (e.repeat) return;
         if (targetKeybind) {

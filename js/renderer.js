@@ -61,8 +61,9 @@ export function initView() {
 
 export function moveCamera(x, y) {
     let invert = save.data.opt.invertMouse;
-    viewCamera.rotation.x = Math.max(Math.min(viewCamera.rotation.x + y / 128 * (1 - invert[1] * 2), Math.PI * 0.45), -Math.PI * 0.4);
-    viewCamera.rotation.y += x / 128 * (1 - invert[0] * 2);
+    let sense = 250 / save.data.opt.mouseSensitivity;
+    viewCamera.rotation.x = Math.max(Math.min(viewCamera.rotation.x + y / sense * (1 - invert[1] * 2), Math.PI * 0.45), -Math.PI * 0.4);
+    viewCamera.rotation.y += x / sense * (1 - invert[0] * 2);
 }
 
 let width = 0, height = 0, realWidth = 0, realHeight = 0;

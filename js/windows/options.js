@@ -2,6 +2,7 @@ import * as save from "../save.js";
 import ores from "../data/ores.js";
 import format from "../format.js";
 import * as ui from "../ui.js";
+import * as _3 from "three";
 
 let hasChangeGraphics = false;
 
@@ -55,6 +56,12 @@ let optionsTabs = {
             let group;
 
             content.append(group = create.group("Mouse"));
+            group.append(create.slider("Sensitivity", 0.1, 10, () => {
+                return save.data.opt.mouseSensitivity;
+            }, (value) => {
+                save.data.opt.mouseSensitivity = value;
+                save.setDirty();
+            }, {precision: 2, mapIn: x => Math.log10(x), mapOut: x => 10 ** x}));
             group.append(create.toggleXY("Invert mouse", () => {
                 return save.data.opt.invertMouse;
             }, (value) => {
@@ -77,7 +84,7 @@ let optionsTabs = {
             content.append(group = create.group("Graphics"));
             group.innerHTML += `
                 <div style='padding: 2px 2px 5px 2px'>
-                    <b>Note:</b> These options require a reload to be applied correctly.
+                    <b>Note:</b> These options require a game reload to apply correctly.
                 </div>
             `;
             let applyButton;
@@ -108,7 +115,12 @@ let optionsTabs = {
     storage: {
         name: "Storage",
         build(content) {
+            let group;
 
+            content.append(group = create.group("Storage actions"));
+            group.append(create.button("Hard reset", "⚠ Reset game ⚠", () => {
+                ui.spawnWindow("saveReset", {cover: true});
+            }));
         }
     },
 }
@@ -123,6 +135,23 @@ let create = {
         group.append(label);
 
         return group;
+    },
+    
+    button(label, content, click) {
+        let item = document.createElement("div");
+        item.classList.add("option-item");
+
+        let labelDiv = document.createElement("label");
+        labelDiv.textContent = label;
+        item.append(labelDiv);
+
+        let button = document.createElement("button");
+        button.textContent = content;
+        button.onclick = click;
+        button.type = "button";
+        item.append(button);
+
+        return item;
     },
     
     toggle(label, get, set) {
@@ -187,7 +216,15 @@ let create = {
 
         return item;
     },
-    button(label, content, click) {
+
+    slider(label, min, max, get, set, options) {
+        options = {
+            precision: 0,
+            mapIn: x => x, 
+            mapOut: x => x,
+            ...options,
+        }
+
         let item = document.createElement("div");
         item.classList.add("option-item");
 
@@ -195,12 +232,38 @@ let create = {
         labelDiv.textContent = label;
         item.append(labelDiv);
 
-        let button = document.createElement("button");
-        button.textContent = content;
-        button.onclick = click;
-        button.type = "button";
-        item.append(button);
+        let inputDiv = document.createElement("div");
+        inputDiv.classList.add("option-slider");
+        item.append(inputDiv);
 
+        let slider = document.createElement("input");
+        labelDiv.htmlFor = slider.id = Math.random();
+        slider.type = "range";
+        slider.min = options.mapIn(min);
+        slider.max = options.mapIn(max);
+        slider.step = options.mapIn ? 1e-300 : options.step ?? 0.1 ** options.precision;
+        slider.value = options.mapIn(get());
+        slider.oninput = () => {
+            let value = options.mapOut(+slider.value);
+            set(value); input.value = format(value, options.precision);
+        }
+        inputDiv.append(slider);
+
+        let input = document.createElement("input");
+        labelDiv.htmlFor = input.id = Math.random();
+        input.type = "text";
+        input.min = min;
+        input.max = max;
+        input.step = options.step ?? 0.1 ** options.precision;
+        input.value = format(get(), options.precision);
+        input.oninput = () => {
+            let value = _3.MathUtils.clamp(+input.value, min, max);
+            set(value); slider.value = options.mapIn(value);
+        }
+        input.onchange = () => {
+            input.value = format(get(), options.precision);
+        }
+        inputDiv.append(input);
         return item;
     }
 }

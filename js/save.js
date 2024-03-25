@@ -18,6 +18,21 @@ export async function save() {
     isDirty = false;
 }
 
+export async function hardReset(keepOptions = true) {
+    save = () => {};
+    let root = await navigator.storage.getDirectory();
+    if (keepOptions) {
+        let root = await navigator.storage.getDirectory();
+        let fileHandle = await root.getFileHandle("browser-mining", { create: true });
+        let file = await fileHandle.createWritable();
+        await file.write(JSON.stringify({opt: data.opt}));
+        await file.close();
+    } else {
+        await root.removeEntry("browser-mining");
+    }
+    window.location.href = window.location.href;
+}
+
 export async function load() {
     try {
         let root = await navigator.storage.getDirectory();
@@ -46,6 +61,7 @@ function getStartPlayer() {
             blockMined: 0,
         },
         opt: {
+            mouseSensitivity: 1,
             invertMouse: [false, false],
             keybinds: {},
 

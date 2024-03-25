@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.onvisibilitychange = async (e) => {
         if (document.visibilityState == "visible") {
         } else {
-            await save.save();
+            save.save();
         }
     }
 });

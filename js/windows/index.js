@@ -4,6 +4,7 @@ import * as inventory from "./inventory.js"
 import * as error from "./error.js"
 import * as options from "./options.js"
 import * as keybinds from "./keybinds.js"
+import * as saveReset from "./saveReset.js"
 
 export default {
     loader,
@@ -11,5 +12,6 @@ export default {
     inventory,
     options,
     keybinds,
+    saveReset,
     error,
 }
