@@ -5,24 +5,24 @@ import maps from "./data/texmaps.js";
 
 export let res = {};
 
-export let progress = {lastLoaded: null, completed: 0, total: 0};
-
 export function loadResources(onDone, onProgress) {
     let list = Object.keys(maps);
     res.textures = {};
+    res.icons = {};
+    res.audio = {};
     let loaded = 0;
     
     const loadManager = new _3.LoadingManager();
     const loader = new _3.TextureLoader(loadManager);
 
-    loadManager.onProgress = (lastLoaded, completed, total) =>{
-        progress = {lastLoaded, completed, total};
+    let lmComp = 0;
+    loadManager.onProgress = (lastLoaded, completed, total) => {
+        comp += completed - lmComp;
+        lmComp = completed;
+        onProgress(lastLoaded, comp, count);
     }
 
-    loadManager.onProgress = onProgress;
     loadManager.onLoad = onDone;
-
-    let count = 0;
 
     (async () => {
         for (let map of list) {
@@ -33,5 +33,36 @@ export function loadResources(onDone, onProgress) {
         }
     })()
 
-    onProgress("", 0, list.length);
+    let count = list.length, comp = 0;
+
+    for (let icon of [
+        "menu-inventory",
+        "menu-forge",
+        "menu-upgrades",
+        "menu-blockdex",
+        "menu-options",
+    ]) {
+        res.icons[icon] = new Image();
+        res.icons[icon].classList.add("icon");
+        res.icons[icon].onload = () => {
+            comp++;
+            onProgress(res.icons[icon].src, comp, count);
+        }
+        res.icons[icon].src = "./res/icons/" + icon + ".png";
+        count++;
+    }
+
+    for (let audio of [
+        "legendary",
+    ]) {
+        res.audio[audio] = new Audio();;
+        res.audio[audio].onload = () => {
+            comp++;
+            onProgress(res.icons[icon].src, comp, count);
+        }
+        res.audio[audio].src = "./res/audio/" + audio + ".mp3";
+        count++;
+    }
+
+    onProgress("", 0, count);
 }

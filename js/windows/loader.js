@@ -38,10 +38,12 @@ let flavorText = [
     '"Minecraft"? Did you mean to say "mine cap"?',
     "I wish I could play this game just like you, being a loading screen all the time gets pretty boring sometimes.",
     'Also known as "My Instant Break Ability Is So Overpowered, No Block In This Voxel World Stands A Chance Against Me!"',
-    "Essential mining tip: Blocks break when you mine them. They also get put into your inventory when you collect them.",
+    "Essential mining tip: Blocks break when you mine them. They also increase your amount of that resource by 1 when you collect them.",
     "Tips, tips, how I can forget these tips...",
-    "What lacks in luck makes up for it with determination and vice versa, I think.",
+    "What lacks in luck makes up for it with determination.",
     "Here's a 4-leaf clover to wish you good luck finding rare ores: 🍀",
+    "The Snail Mining Company called&mdash;they wanted their auto-miners back.",
+    "This game is <code>alert</code> free!",
 ]
 
 export function update(window) {

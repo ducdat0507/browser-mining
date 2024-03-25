@@ -3,6 +3,7 @@ import format from "./format.js";
 import { targetSpeed } from "./input.js";
 import { currentBlock } from "./renderer.js";
 import { data } from "./save.js";
+import { res } from "./resources.js";
 import * as scene from "./scene.js";
 import windowTypes from "./windows/index.js";
 
@@ -49,6 +50,7 @@ export function init() {
         menuBtn.style.right = "5px";
         menuBtn.style.bottom = menuY + "px";
         menuBtn.onclick = () => spawnWindow(menu, {unique: true});
+        menuBtn.append(res.icons["menu-" + menu]);
         document.body.append(menuBtn);
         menuY += 55;
     }
