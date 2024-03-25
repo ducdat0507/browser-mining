@@ -55,7 +55,8 @@ export function loadResources(onDone, onProgress) {
     for (let audio of [
         "legendary",
     ]) {
-        res.audio[audio] = new Audio();;
+        res.audio[audio] = new Audio();
+        res.audio[audio].preload = "auto";
         res.audio[audio].onload = () => {
             comp++;
             onProgress(res.icons[icon].src, comp, count);
