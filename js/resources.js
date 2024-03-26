@@ -15,14 +15,19 @@ export function loadResources(onDone, onProgress) {
     const loadManager = new _3.LoadingManager();
     const loader = new _3.TextureLoader(loadManager);
 
-    let lmComp = 0;
+    let lmComp = 0, lmTotal = 1;
     loadManager.onProgress = (lastLoaded, completed, total) => {
         comp += completed - lmComp;
-        lmComp = completed;
+        lmComp = completed; lmTotal = total;
         onProgress(lastLoaded, comp, count);
     }
 
-    loadManager.onLoad = onDone;
+    loadManager.onLoad = () => {
+        comp += lmTotal - lmComp;
+        lmComp = lmTotal;
+        onProgress("", comp, count);
+        if (comp == count) onDone();
+    }
 
     (async () => {
         for (let map of list) {
@@ -44,9 +49,10 @@ export function loadResources(onDone, onProgress) {
     ]) {
         res.icons[icon] = new Image();
         res.icons[icon].classList.add("icon");
-        res.icons[icon].onload = () => {
+        res.icons[icon].onerror = res.icons[icon].onload = () => {
             comp++;
             onProgress(res.icons[icon].src, comp, count);
+            if (comp == count) onDone();
         }
         res.icons[icon].src = "./res/icons/" + icon + ".png";
         count++;
@@ -57,9 +63,10 @@ export function loadResources(onDone, onProgress) {
     ]) {
         res.audio[audio] = new Audio();
         res.audio[audio].preload = "auto";
-        res.audio[audio].onload = () => {
+        res.audio[audio].onerror = res.audio[audio].oncanplaythrough = () => {
             comp++;
-            onProgress(res.icons[icon].src, comp, count);
+            onProgress(res.audio[audio].src, comp, count);
+            if (comp == count) onDone();
         }
         res.audio[audio].src = "./res/audio/" + audio + ".mp3";
         count++;
