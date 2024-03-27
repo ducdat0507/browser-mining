@@ -23,7 +23,7 @@ export function build(window) {
     window.$content.classList.add("options-holder");
 
     let tabs = document.createElement("div");
-    tabs.classList.add("options-tab-list");
+    tabs.classList.add("window-tab-list");
     window.insertBefore(tabs, window.$content);
     window.$content.classList.add("scrollable");
 

@@ -5,6 +5,7 @@ export default ores = {
     "barrier": {
         name: "Barrier",
         map: ["basic", 3, 2],
+        unobtainable: true,
     },
     // -------------------------------------------------- Layer ores
     "stone": {
@@ -113,22 +114,16 @@ export default ores = {
         range: [4000, 8000],
         map: ["wip", 0, 0],
     },
+    "ruby": {
+        name: "Ruby",
+        rarity: 2_200,
+        range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
     "pet_wood": {
         name: "Petrified Wood",
         rarity: 2_600,
         range: [0, 2000],
-        map: ["wip", 0, 0],
-    },
-    "solarite": {
-        name: "Solarite",
-        rarity: 3_330,
-        range: [6000, 8000],
-        map: ["wip", 0, 0],
-    },
-    "lunarite": {
-        name: "Lunarite",
-        rarity: 3_330,
-        range: [4000, 6000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Rare
@@ -138,11 +133,23 @@ export default ores = {
         range: [5000, 6000],
         map: ["wip", 0, 0],
     },
+    "solarite": {
+        name: "Solarite",
+        rarity: 33_330,
+        range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "lunarite": {
+        name: "Lunarite",
+        rarity: 33_330,
+        range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Scarce
     "uranium": {
         name: "Uranium",
         rarity: 92_000,
-        range: [6000, 8000],
+        range: [4000, 6000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Exotic
@@ -152,11 +159,60 @@ export default ores = {
         range: [4000, 6000],
         map: ["wip", 0, 0],
     },
+    // -------------------------------------------------- Marvellous
+    "devillium": {
+        name: "Devillium",
+        rarity: 666_666,
+        range: [7000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "angellite": {
+        name: "Angellite",
+        rarity: 888_888,
+        range: [4000, 5000],
+        map: ["wip", 0, 0],
+    },
+    // -------------------------------------------------- Legendary
+    "chromatite": {
+        name: "Chromatite",
+        rarity: 1_508_000,
+        range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Mythical
     "ragnarock": {
         name: "Ragnarock",
         rarity: 9_250_360,
         range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
+    // -------------------------------------------------- Enigmatic
+    "illuminam": {
+        name: "Illumina",
+        rarity: 32_768_000,
+        map: ["wip", 0, 0],
+    },
+    // -------------------------------------------------- Celestial
+    "universium": {
+        name: "Universium",
+        rarity: 180_000_000,
+        map: ["wip", 0, 0],
+    },
+    // -------------------------------------------------- Otherworldly
+    "chronostone": {
+        name: "Chronostone",
+        rarity: 640_000_000,
+        map: ["wip", 0, 0],
+    },
+    // -------------------------------------------------- Unfathomable
+    "serendipium": {
+        name: "Serendipium",
+        rarity: 777_777_777,
+        map: ["wip", 0, 0],
+    },
+    "neuronite": {
+        name: "Neuronite",
+        rarity: 1_234_567_890,
         map: ["wip", 0, 0],
     },
 }

@@ -39,25 +39,26 @@ export function init() {
 
     //
 
-    let menus = {
-        options: "Options",
-    }
-
-    let menuY = 5;
-    for (let menu in menus) {
+    function createMenu(menu, title) {
         let menuBtn = document.createElement("button");
-        menuBtn.classList.add("menu-button");
-        menuBtn.style.right = "5px";
-        menuBtn.style.bottom = menuY + "px";
+        menuBtn.classList.add("menu-button", "flat-button");
         menuBtn.onclick = () => spawnWindow(menu, {unique: true});
         menuBtn.append(res.icons["menu-" + menu]);
         document.body.append(menuBtn);
-        menuY += 55;
+        return menuBtn;
     }
+    
+    let dexBtn = createMenu("gaiadex", "Gaiadex");
+    dexBtn.style.left = "5px";
+    dexBtn.style.bottom = "5px";
+
+    let optBtn = createMenu("options", "Options");
+    optBtn.style.right = "5px";
+    optBtn.style.bottom = "5px";
 
     //
 
-    spawnWindow("inventory");
+    spawnWindow("resources");
     spawnWindow("intro");
 
     //

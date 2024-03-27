@@ -44,8 +44,11 @@ export function loadResources(onDone, onProgress) {
         "menu-inventory",
         "menu-forge",
         "menu-upgrades",
-        "menu-blockdex",
+        "menu-gaiadex",
+        "menu-statistics",
         "menu-options",
+        "menu-about",
+        "menu-more",
     ]) {
         res.icons[icon] = new Image();
         res.icons[icon].classList.add("icon");

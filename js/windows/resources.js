@@ -3,12 +3,12 @@ import ores from "../data/ores.js";
 import format from "../format.js";
 
 export function build(window) {
-    window.style.bottom = "5px";
+    window.style.bottom = "60px";
     window.style.left = "5px";
     window.style.width = "200px";
     window.style.height = "400px";
 
-    window.$title.textContent = "Inventory";
+    window.$title.textContent = "Resources";
 
     let listDiv = document.createElement("div");
     listDiv.classList.add("inventory-list");

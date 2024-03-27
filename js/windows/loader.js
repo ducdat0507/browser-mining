@@ -44,6 +44,8 @@ let flavorText = [
     "Here's a 4-leaf clover to wish you good luck finding rare ores: 🍀",
     "The Snail Mining Company called&mdash;they wanted their auto-miners back.",
     "This game is <code>alert</code> free!",
+    "We yearnin' for the mines",
+    "Private servers are free!... well, they are the only type of servers anyways.",
 ]
 
 export function update(window) {

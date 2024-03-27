@@ -44,11 +44,15 @@ button:focus-visible, input:focus-visible {
 .base-padding {
     padding: 5px 7px;
 }
+.block-padding {
+    padding: 7px;
+}
 .icon {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    max-height: 100%;
+    margin: 10%;
+    width: 80%;
+    max-width: 80%;
+    height: 80%;
+    max-height: 80%;
 }
 
 button {
@@ -72,6 +76,30 @@ button {
     &:disabled {
         background: #111;
         color: #777;
+    }
+}
+
+.flat-button {
+    background: #000a;
+
+    &:hover {
+        background: #222a;
+    }
+
+    &:active {
+        background: #111a;
+    }
+}
+
+.tier-button {
+    background: var(--tier-background);
+
+    &:hover {
+        background: linear-gradient(#fff2, #fff2), var(--tier-background);
+    }
+
+    &:active {
+        background: linear-gradient(#0001, #0001), var(--tier-background);
     }
 }
 
@@ -112,10 +140,10 @@ button {
 
 #topbar .tally {
     width: 150px;
-    background: #000a;
-    border: 1px solid #aaaa;
     border-radius: 5px;
+    background: #000a;
     box-shadow: 0 0 1px #000;
+    border: 1px solid #aaaa;
     padding: 5px 7px;
     display: flex;
     justify-content: space-between;
@@ -165,8 +193,6 @@ button {
     position: fixed;
     height: 50px;
     width: 50px;
-    background: #000a;
-    border: 1px solid #aaaa;
     border-radius: 5px;
     box-shadow: 0 0 1px #000;
     padding: 0px;
@@ -319,6 +345,63 @@ button {
     font-weight: bold;
 }
 
+/* -------------------------------------------------- Gaiadex
+*/
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 3px;
+}
+.grid-list > * {
+    aspect-ratio: 1;
+}
+
+.gaiadex-block {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: end;
+    font-size: 10px;
+    padding-inline: 0;
+}
+
+.block-faces {
+    position: absolute;
+    inset: 0;
+    filter: drop-shadow(-2px 2px 2px #0007);
+}
+
+.block-faces img {
+    position: absolute;
+    top: calc(50% - 68px);
+    left: calc(50% - 65.5px);
+    object-fit: none;
+    object-position: calc(-1px * var(--face-left)) calc(-1px * var(--face-top));
+    width: calc(1px * var(--face-width));
+    height: calc(1px * var(--face-height));
+    margin: 0;
+    
+    --base-transform: scale(calc(30 / var(--face-width)), calc(-30 / var(--face-height))) perspective(300px) rotateX(30deg) rotateY(30deg);
+
+    &:nth-of-type(1) {
+        filter: brightness(0.6);
+        transform: var(--base-transform) rotateY(-90deg) translate3d(0, 0, 64px);
+    }
+    &:nth-of-type(2) {
+        filter: brightness(0.8);
+        transform: var(--base-transform) translate3d(0, 0, 64px);
+    }
+    &:nth-of-type(3) {
+        transform: var(--base-transform) rotateX(-90deg) translate3d(0, 0, 64px);
+    }
+}
+
+.block-name {
+    z-index: 1;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000, 1px 1px 2px #000;
+}
+
 /* -------------------------------------------------- Rarity tiers
 */
 [tier="-1"] {
@@ -368,22 +451,22 @@ button {
     flex-direction: column;
 }
 
-.options-tab-list {
+.window-tab-list {
     padding: 5px 7px 0 7px;
     box-shadow: inset 0 -1px #aaaa, 0 10px 10px #000;
     display: flex;
     align-items: end;
     flex: 0 0 calc(1.2em + 20px);
 }
-.options-tab-list > button {
+.window-tab-list > button {
     padding: 5px 8px;
     border-radius: 0;
     border-right: none;
 }
-.options-tab-list > button:first-child {
+.window-tab-list > button:first-child {
     border-top-left-radius: 3px;
 }
-.options-tab-list > button:disabled {
+.window-tab-list > button:disabled {
     border-radius: 3px 3px 0 0;
     border-right: 1px solid #aaaa;
     background: #000;
@@ -392,10 +475,10 @@ button {
     border-bottom: none;
     font-weight: bold;
 }
-.options-tab-list > button:disabled + button {
+.window-tab-list > button:disabled + button {
     border-left: none;
 }
-.options-tab-list > button:last-child {
+.window-tab-list > button:last-child {
     border-top-right-radius: 3px;
     border-right: 1px solid #aaaa;
 }
