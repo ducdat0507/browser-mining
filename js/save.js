@@ -90,6 +90,7 @@ function getStartPlayer() {
             keybinds: {},
 
             antialias: true,
+            hqGaiadex: true,
         }
     }
 }

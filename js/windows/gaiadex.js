@@ -55,8 +55,11 @@ let gaiadexTabs = {
         name: "Ores",
         build(content) {
 
+            let hqGaiadex = save.data.opt.hqGaiadex;
+
             let list = document.createElement("div");
             list.classList.add("grid-list");
+            if (hqGaiadex) list.classList.add("hq-gaiadex");
             content.append(list);
 
             for (let ore in ores) {
@@ -66,6 +69,10 @@ let gaiadexTabs = {
                 let button = document.createElement("button");
                 button.classList.add("gaiadex-block", "tier-button");
                 button.setAttribute("tier", oreData.tier);
+                button.onclick = () => {
+                    let window = ui.spawnWindow("dexBlock", {unique: true});
+                    window.$setOre(ore);
+                }
                 list.append(button);
 
                 let faces = document.createElement("div");
@@ -81,7 +88,7 @@ let gaiadexTabs = {
                     button.style.setProperty("--face-top", faceWidth * oreData.map[1]);
                     button.style.setProperty("--face-left", faceHeight * oreData.map[2]);
     
-                    for (let a = 0; a < 3; a++) {
+                    for (let a = 0; a < hqGaiadex * 2 + 1; a++) {
                         let face = img.cloneNode();
                         faces.append(face);
                     }

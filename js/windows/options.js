@@ -104,6 +104,14 @@ let optionsTabs = {
             applyButton.style.paddingTop = "5px";
             applyButton = applyButton.querySelector("button")
             applyButton.disabled = !hasChangeGraphics;
+            
+            content.append(group = create.group("Interface"));
+            group.append(create.toggle("High quality Gaiadex", () => {
+                return save.data.opt.hqGaiadex
+            }, (value) => {
+                save.data.opt.hqGaiadex = value;
+                save.setDirty();
+            }))
         }
     },
     audio: {

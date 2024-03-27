@@ -361,6 +361,7 @@ button {
     position: relative;
     flex-direction: column;
     justify-content: end;
+    align-items: stretch;
     font-size: 10px;
     padding-inline: 0;
 }
@@ -373,16 +374,24 @@ button {
 
 .block-faces img {
     position: absolute;
-    top: calc(50% - 68px);
-    left: calc(50% - 65.5px);
+    top: calc(50% - 70px);
+    left: calc(50% - 64px);
     object-fit: none;
     object-position: calc(-1px * var(--face-left)) calc(-1px * var(--face-top));
     width: calc(1px * var(--face-width));
     height: calc(1px * var(--face-height));
     margin: 0;
     
-    --base-transform: scale(calc(30 / var(--face-width)), calc(-30 / var(--face-height))) perspective(300px) rotateX(30deg) rotateY(30deg);
+    --base-transform: scale(calc(40 / var(--face-width)), calc(-40 / var(--face-height)));
 
+    transform: var(--base-transform);
+}
+
+.hq-gaiadex .block-faces img {
+    top: calc(50% - 68px);
+    left: calc(50% - 65.5px);
+    --base-transform: scale(calc(30 / var(--face-width)), calc(-30 / var(--face-height))) perspective(300px) rotateX(30deg) rotateY(30deg);
+    
     &:nth-of-type(1) {
         filter: brightness(0.6);
         transform: var(--base-transform) rotateY(-90deg) translate3d(0, 0, 64px);
@@ -401,6 +410,29 @@ button {
     line-height: 1;
     text-shadow: 1px 1px 2px #000, 1px 1px 2px #000;
 }
+
+.dex-info-table {
+    display: flex;
+}
+
+.dex-info-table > * {
+    flex: 0 1 100%;
+}
+
+.dex-info-table small {
+    font-size: 10px;
+}
+
+
+.rarity-text {
+    font-weight: 900;
+    background: linear-gradient(90deg, #fff3, #fff7), var(--tier-background), var(--tier-background), var(--tier-background), var(--tier-background), var(--tier-background);
+    filter: brightness(1.5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
 
 /* -------------------------------------------------- Rarity tiers
 */

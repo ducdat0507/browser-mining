@@ -11,34 +11,42 @@ export default ores = {
     "stone": {
         name: "Stone",
         map: ["basic", 0, 0],
+        range: [0, 1050],
     },
     "bedrock": {
         name: "Bedrock",
         map: ["basic", 0, 2],
+        range: [950, 2050],
     },
     "diorite": {
         name: "Diorite",
         map: ["basic", 1, 2],
+        range: [1950, 3050],
     },
     "marble": {
         name: "Marble",
         map: ["basic", 2, 2],
+        range: [2950, 4050],
     },
     "granite": {
         name: "Granite",
         map: ["basic", 2, 1],
+        range: [3950, 5050],
     },
     "obsidian": {
         name: "Obsidian",
         map: ["basic", 2, 0],
+        range: [4950, 6050],
     },
     "mantle": {
         name: "Mantle",
         map: ["basic", 3, 0],
+        range: [5950, 7050],
     },
     "magma": {
         name: "Magma",
         map: ["basic", 3, 1],
+        range: [6950, 8000],
     },
     // -------------------------------------------------- Common
     "clay": {
@@ -71,16 +79,22 @@ export default ores = {
         range: [1000, 5000],
         map: ["wip", 0, 0],
     },
+    "glass": {
+        name: "Glass",
+        rarity: 160,
+        range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
     "steel": {
         name: "Steel",
         rarity: 200,
-        range: [2000, 5000],
+        range: [2000, 6000],
         map: ["wip", 0, 0],
     },
     "inox": {
         name: "Inox",
         rarity: 300,
-        range: [3000, 5000],
+        range: [3000, 6000],
         map: ["wip", 0, 0],
     },
     "gold": {
@@ -93,6 +107,12 @@ export default ores = {
         name: "Charcoal",
         rarity: 600,
         range: [1000, 3000],
+        map: ["wip", 0, 0],
+    },
+    "lithium": {
+        name: "Lithium",
+        rarity: 800,
+        range: [1000, 4000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Uncommon
@@ -117,20 +137,68 @@ export default ores = {
     "ruby": {
         name: "Ruby",
         rarity: 2_200,
-        range: [4000, 6000],
+        range: [6000, 8000],
         map: ["wip", 0, 0],
     },
-    "pet_wood": {
-        name: "Petrified Wood",
+    "wood": {
+        name: "Wood",
         rarity: 2_600,
+        range: [0, 1000],
+        map: ["wip", 0, 0],
+    },
+    "amethyst": {
+        name: "Amethyst",
+        rarity: 3_500,
+        range: [5000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "pearl": {
+        name: "Pearl",
+        rarity: 5_000,
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "pack_oil": {
+        name: "Packed Oil",
+        rarity: 7_777,
+        range: [1000, 2000],
+        map: ["wip", 0, 0],
+    },
+    "garnet": {
+        name: "Garnet",
+        rarity: 10_000,
+        range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "bone_meal": {
+        name: "Bone Meal",
+        rarity: 12_000,
         range: [0, 2000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Rare
+    "flint": {
+        name: "Flint",
+        rarity: 18_000,
+        range: [1000, 2000],
+        map: ["wip", 0, 0],
+    },
     "black_dia": {
         name: "Black Diamond",
         rarity: 24_000,
         range: [5000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "pet_wood": {
+        name: "Petrified Wood",
+        rarity: 26_000,
+        range: [1000, 2000],
+        map: ["wip", 0, 0],
+    },
+    "plastic": {
+        name: "Plastic",
+        rarity: 30_000,
+        range: [0, 1000],
         map: ["wip", 0, 0],
     },
     "solarite": {
@@ -146,13 +214,85 @@ export default ores = {
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Scarce
+    "gunpowder": {
+        name: "Gunpowder",
+        rarity: 42_000,
+        range: [0, 4000],
+        map: ["wip", 0, 0],
+    },
+    "charge": {
+        name: "Charge",
+        rarity: 55_555,
+        range: [2000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "mythril": {
+        name: "Mythril",
+        rarity: 60_000,
+        range: [2000, 3000],
+        map: ["wip", 0, 0],
+    },
+    "radium": {
+        name: "Radium",
+        rarity: 88_000,
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
     "uranium": {
         name: "Uranium",
         rarity: 92_000,
         range: [4000, 6000],
         map: ["wip", 0, 0],
     },
+    "nobelium": {
+        name: "Nobelium",
+        rarity: 102_000,
+        range: [3000, 4000],
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Exotic
+    "monil": {
+        name: "Monil",
+        rarity: 177_777,
+        range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
+    "kryptonite": {
+        name: "Kryptonite",
+        rarity: 192_000,
+        range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "reactivil": {
+        name: "Reactivil",
+        rarity: 300_000,
+        range: [5000, 7000],
+        map: ["wip", 0, 0],
+    },
+    "hydra_crys": {
+        name: "Hydra Crystal",
+        rarity: 320_000,
+        range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
+    "pyro_crys": {
+        name: "Pyro Crystal",
+        rarity: 330_000,
+        range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "gaia_crys": {
+        name: "Gaia Crystal",
+        rarity: 340_000,
+        range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "anemoi_crys": {
+        name: "Anemoi Crystal",
+        rarity: 340_000,
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
     "berrylite": {
         name: "Berrylite",
         rarity: 490_122,
@@ -161,22 +301,64 @@ export default ores = {
     },
     // -------------------------------------------------- Marvellous
     "devillium": {
-        name: "Devillium",
+        name: "Devilium",
         rarity: 666_666,
         range: [7000, 8000],
         map: ["wip", 0, 0],
     },
+    "Greenvil": {
+        name: "Greenvil",
+        rarity: 777_777,
+        range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
     "angellite": {
-        name: "Angellite",
+        name: "Angelite",
         rarity: 888_888,
-        range: [4000, 5000],
+        range: [3000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "positivium": {
+        name: "Positivium",
+        rarity: 910_938,
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "negativium": {
+        name: "Negativium",
+        rarity: 910_938,
+        range: [4000, 6000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Legendary
     "chromatite": {
         name: "Chromatite",
         rarity: 1_508_000,
-        range: [4000, 6000],
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "neutronite": {
+        name: "Neutronite",
+        rarity: 1_674_927,
+        range: [2000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "earth_core": {
+        name: "Earth's Core",
+        rarity: 2_160_000,
+        range: [7000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "jinkyl": {
+        name: "Jinkyl",
+        rarity: 3_777_777,
+        range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
+    "beard_treas": {
+        name: "Beardy's Treasure",
+        rarity: 6_280_000,
+        range: [0, 1000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Mythical
@@ -186,21 +368,63 @@ export default ores = {
         range: [6000, 8000],
         map: ["wip", 0, 0],
     },
+    "mananite": {
+        name: "Mananite",
+        rarity: 11_235_811,
+        range: [1000, 2000],
+        map: ["wip", 0, 0],
+    },
+    "naturite": {
+        name: "Naturite",
+        rarity: 18_360_720,
+        range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Enigmatic
-    "illuminam": {
+    "mysticite": {
+        name: "Mysticite",
+        rarity: 28_135_370,
+        map: ["wip", 0, 0],
+    },
+    "illumina": {
         name: "Illumina",
         rarity: 32_768_000,
         map: ["wip", 0, 0],
     },
+    "luck_rock": {
+        name: "Lucky Rock",
+        rarity: 77_777_777,
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Celestial
+    "millenium": {
+        name: "Millenium",
+        rarity: 100_000_000,
+        map: ["wip", 0, 0],
+    },
     "universium": {
         name: "Universium",
         rarity: 180_000_000,
         map: ["wip", 0, 0],
     },
+    "intelligite": {
+        name: "Intelligite",
+        rarity: 213_243_546,
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Otherworldly
+    "chorostone": {
+        name: "Chorostone",
+        rarity: 480_000_000,
+        map: ["wip", 0, 0],
+    },
     "chronostone": {
         name: "Chronostone",
+        rarity: 520_000_000,
+        map: ["wip", 0, 0],
+    },
+    "uni_remains": {
+        name: "Last Universe's Remains",
         rarity: 640_000_000,
         map: ["wip", 0, 0],
     },
@@ -210,8 +434,13 @@ export default ores = {
         rarity: 777_777_777,
         map: ["wip", 0, 0],
     },
-    "neuronite": {
-        name: "Neuronite",
+    "billium": {
+        name: "Billium",
+        rarity: 1_000_000_000,
+        map: ["wip", 0, 0],
+    },
+    "neuronium": {
+        name: "Neuronium",
         rarity: 1_234_567_890,
         map: ["wip", 0, 0],
     },
@@ -272,3 +501,16 @@ for (let ore in ores) {
     if (ores[ore].rarity) ores[ore].tier = tiers.findLastIndex(x => (x.from <= ores[ore].rarity));
     else ores[ore].tier = -1;
 }
+
+let table = "";
+let ltier = 0;
+for (let ore in ores) {
+    if (ltier != ores[ore].tier) {
+        ltier = ores[ore].tier;
+        table += ltier + "\n";
+    }
+    table += [250, 750, 1250, 1750, 2250, 2750, 3250, 3750, 4250, 4750, 5250, 5750, 6250, 6750, 7250, 7750]
+        .map(x => (!ores[ore].range || (x >= ores[ore].range[0] && x <= ores[ore].range[1])) ? "#" : ".").join("") + 
+        " " + ores[ore].name + "\n";
+}
+console.log(table);

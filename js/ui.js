@@ -104,8 +104,13 @@ export let create = {
 }
 
 export function spawnWindow(type, options, ...args) {
-    if (options?.unique && windows.find(x => x.$type == type)) return;
-    let window = document.createElement("div");
+    let window;
+
+    if (options?.unique && (window = windows.find(x => x.$type == type))) {
+        return window;
+    }
+
+    window = document.createElement("div");
     window.classList.add("window");
     window.close = () => closeWindow(window);
     
