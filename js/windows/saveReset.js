@@ -30,7 +30,7 @@ export function build(window) {
     let actionYes = document.createElement("button");
     actionYes.textContent = "Confirm";
     actionYes.onclick = () => {
-        navigator.clipboard.write(save.getExportString());
+        navigator.clipboard.writeText(save.getExportString());
         save.hardReset(window.querySelector("#reset-options").checked);
         window.$content.innerHTML = "Resetting your save...";
     }

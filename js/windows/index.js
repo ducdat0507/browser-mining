@@ -1,6 +1,8 @@
 import * as intro from "./intro.js"
 import * as loader from "./loader.js"
 import * as resources from "./resources.js"
+import * as inventory from "./inventory.js"
+import * as forge from "./forge.js"
 import * as error from "./error.js"
 import * as gaiadex from "./gaiadex.js"
 import * as dexBlock from "./dexBlock.js"
@@ -15,6 +17,8 @@ export default {
     loader,
     intro,
     resources,
+    inventory,
+    forge,
     gaiadex,
     dexBlock,
     options,

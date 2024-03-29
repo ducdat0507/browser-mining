@@ -56,6 +56,8 @@ export function init() {
     optBtn.style.right = "5px";
     optBtn.style.bottom = "5px";
 
+    updateDeck();
+
     //
 
     spawnWindow("resources");
@@ -81,6 +83,84 @@ export function update() {
     }
 
     for (let window of windows) windowTypes[window.$type].update(window);
+}
+
+export let loadoutButtons = [];
+
+export function updateDeck() {
+    let menuList = ["inventory", "forge"];
+
+    let loadout = data.loadout;
+    let offset = (loadout.gear.length + (invActive ? menuList.length : 1)) / 2 + .5;
+    let pxOffset = 0;
+
+    //
+    
+    function addButton() {
+        let menuBtn = document.createElement("button");
+        menuBtn.classList.add("menu-button", "flat-button", "deck-button");
+        menuBtn.onclick = () => setTool(menuBtn.$item);
+
+        document.body.append(menuBtn);
+        return menuBtn;
+    }
+
+    function isInLoadout(item) {
+        if (item[0] == "pick") return loadout.pick == item[1];
+        if (item[0] == "gear") return loadout.get.includes(item[1]);
+        if (item[0] == "menu") return invActive ? menuList.includes(item[1]) : menuList[0] == item[1];
+    }
+
+    //
+
+    let index = 0;
+
+    function handleButton(item) {
+        let button = loadoutButtons.find(x => x.$item == item || (x.$item[0] == item[0] && x.$item[1] == item[1]));
+        if (!button) {
+            button = addButton();
+            button.append(res.icons[item[0] + "-" + item[1]] ?? "");
+            loadoutButtons.push(button);
+            button.$item = item;
+        }
+        button.style.left = "calc(50% + " + ((index - offset) * 55 + 2.5 + pxOffset) + "px)";
+        button.style.bottom = "5px";
+        index++;
+    }
+
+    for (let [btnID, btn] of Object.entries(loadoutButtons)) {
+        if (!isInLoadout(btn.$item)) {
+            btn.remove();
+            loadoutButtons.splice(btnID, 1);
+        }
+    }
+
+    if (loadout.gear.length) pxOffset -= 5;
+    handleButton(["pick", loadout.pick]);
+    if (loadout.gear.length) pxOffset += 5;
+    for (let gear of loadout.gear) handleButton(["gear", gear]);
+    pxOffset += 5;
+    for (let menu of menuList) {
+        handleButton(["menu", menu]);
+        if (!invActive) return;
+    }
+
+}
+
+let invActive = false, invWindow = null;
+
+export function setInvActive(state) {
+    invActive = state;
+    if (!invActive) invWindow = null;
+    updateDeck();
+}
+
+export function setTool(tool) {
+    if (tool[0] == "menu") {
+        if (invWindow) invWindow.close();
+        invWindow = spawnWindow(tool[1], {unique: true});
+        if (!invActive) setInvActive(true);
+    }
 }
 
 export let create = {

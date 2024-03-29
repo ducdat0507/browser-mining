@@ -2,7 +2,8 @@ import * as _3 from "three";
 import * as save from "./save.js";
 import * as input from "./input.js";
 import ores from "./data/ores.js";
-import { viewCamera } from "./renderer.js";
+import picks from "./data/picks.js";
+import { viewCamera, currentBlock } from "./renderer.js";
 
 export let playerPos = new _3.Vector3(0.5, -2, 0.5);
 export let playerVel = new _3.Vector3(0, 0, 0);
@@ -325,6 +326,21 @@ export function doPhysics(delta) {
             playerVel.z = 0;
         }
         playerPos.z += move;
+    }
+}
+
+export function usePickaxe() {
+    if (currentBlock) {
+        mineAt(currentBlock.blockPos);
+        rollAbilities(picks[save.data.loadout.pick], currentBlock);
+    }
+}
+
+export function rollAbilities(item, block) {
+    for (let ability of item.abilities) {
+        if (ability.procChance && Math.random() < 1 / ability.procChance) {
+            ability.trigger(block);
+        }
     }
 }
 

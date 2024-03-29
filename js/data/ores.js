@@ -16,37 +16,37 @@ export default ores = {
     "bedrock": {
         name: "Bedrock",
         map: ["basic", 0, 2],
-        range: [950, 2050],
+        range: [951, 2050],
     },
     "diorite": {
         name: "Diorite",
         map: ["basic", 1, 2],
-        range: [1950, 3050],
+        range: [1951, 3050],
     },
     "marble": {
         name: "Marble",
         map: ["basic", 2, 2],
-        range: [2950, 4050],
+        range: [2951, 4050],
     },
     "granite": {
         name: "Granite",
         map: ["basic", 2, 1],
-        range: [3950, 5050],
+        range: [3951, 5050],
     },
     "obsidian": {
         name: "Obsidian",
         map: ["basic", 2, 0],
-        range: [4950, 6050],
+        range: [4951, 6050],
     },
     "mantle": {
         name: "Mantle",
         map: ["basic", 3, 0],
-        range: [5950, 7050],
+        range: [5951, 7050],
     },
     "magma": {
         name: "Magma",
         map: ["basic", 3, 1],
-        range: [6950, 8000],
+        range: [6951, 8000],
     },
     // -------------------------------------------------- Common
     "clay": {
@@ -149,13 +149,19 @@ export default ores = {
     "amethyst": {
         name: "Amethyst",
         rarity: 3_500,
-        range: [5000, 6000],
+        range: [4000, 5000],
         map: ["wip", 0, 0],
     },
     "pearl": {
         name: "Pearl",
         rarity: 5_000,
         range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "opal": {
+        name: "Opal",
+        rarity: 6_000,
+        range: [3000, 4000],
         map: ["wip", 0, 0],
     },
     "pack_oil": {
@@ -189,6 +195,12 @@ export default ores = {
         range: [5000, 6000],
         map: ["wip", 0, 0],
     },
+    "fossil": {
+        name: "Fossil",
+        rarity: 25_000,
+        range: [4000, 5000],
+        map: ["wip", 0, 0],
+    },
     "pet_wood": {
         name: "Petrified Wood",
         rarity: 26_000,
@@ -201,16 +213,40 @@ export default ores = {
         range: [0, 1000],
         map: ["wip", 0, 0],
     },
+    "plasma": {
+        name: "Plasma",
+        rarity: 30_000,
+        range: [7000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "abacile": {
+        name: "Abacile",
+        rarity: 32_000,
+        range: [3000, 4000],
+        map: ["wip", 0, 0],
+    },
     "solarite": {
         name: "Solarite",
         rarity: 33_330,
-        range: [6000, 8000],
+        range: [6000, 7000],
         map: ["wip", 0, 0],
     },
     "lunarite": {
         name: "Lunarite",
         rarity: 33_330,
-        range: [4000, 6000],
+        range: [5000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "crystalline": {
+        name: "Crystalline",
+        rarity: 36_000,
+        range: [5000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "silicon": {
+        name: "Silicon",
+        rarity: 37_500,
+        range: [2000, 3000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Scarce
@@ -221,7 +257,7 @@ export default ores = {
         map: ["wip", 0, 0],
     },
     "charge": {
-        name: "Charge",
+        name: "Earth Charge",
         rarity: 55_555,
         range: [2000, 6000],
         map: ["wip", 0, 0],
@@ -229,13 +265,13 @@ export default ores = {
     "mythril": {
         name: "Mythril",
         rarity: 60_000,
-        range: [2000, 3000],
+        range: [1000, 2000],
         map: ["wip", 0, 0],
     },
     "radium": {
         name: "Radium",
         rarity: 88_000,
-        range: [2000, 4000],
+        range: [2000, 5000],
         map: ["wip", 0, 0],
     },
     "uranium": {
@@ -244,13 +280,36 @@ export default ores = {
         range: [4000, 6000],
         map: ["wip", 0, 0],
     },
+    "melodil": {
+        name: "Melodil",
+        rarity: 100_000,
+        map: ["wip", 0, 0],
+    },
     "nobelium": {
         name: "Nobelium",
         rarity: 102_000,
         range: [3000, 4000],
         map: ["wip", 0, 0],
     },
+    "scorvil": {
+        name: "Scorvil",
+        rarity: 106_660,
+        range: [6000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "cucumberite": {
+        name: "Cucumberite",
+        rarity: 118_000,
+        range: [0, 1000],
+        map: ["wip", 0, 0],
+    },
     // -------------------------------------------------- Exotic
+    "viridium": {
+        name: "Viridium",
+        rarity: 140_000,
+        range: [3000, 4000],
+        map: ["wip", 0, 0],
+    },
     "monil": {
         name: "Monil",
         rarity: 177_777,
@@ -261,6 +320,12 @@ export default ores = {
         name: "Kryptonite",
         rarity: 192_000,
         range: [4000, 6000],
+        map: ["wip", 0, 0],
+    },
+    "prismatine": {
+        name: "Prismatine",
+        rarity: 250_000,
+        range: [3000, 4000],
         map: ["wip", 0, 0],
     },
     "reactivil": {
@@ -296,10 +361,16 @@ export default ores = {
     "berrylite": {
         name: "Berrylite",
         rarity: 490_122,
-        range: [4000, 6000],
+        range: [3000, 5000],
         map: ["wip", 0, 0],
     },
     // -------------------------------------------------- Marvellous
+    "alpha_stone": {
+        name: "Alpha Stone",
+        rarity: 500_000,
+        range: [4000, 5000],
+        map: ["wip", 0, 0],
+    },
     "devillium": {
         name: "Devilium",
         rarity: 666_666,
@@ -310,6 +381,12 @@ export default ores = {
         name: "Greenvil",
         rarity: 777_777,
         range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
+    "fiereyl": {
+        name: "Fiereyl",
+        rarity: 850_000,
+        range: [6000, 7000],
         map: ["wip", 0, 0],
     },
     "angellite": {
@@ -343,6 +420,12 @@ export default ores = {
         range: [2000, 6000],
         map: ["wip", 0, 0],
     },
+    "beta_stone": {
+        name: "Beta Stone",
+        rarity: 2_000_000,
+        range: [4000, 5000],
+        map: ["wip", 0, 0],
+    },
     "earth_core": {
         name: "Earth's Core",
         rarity: 2_160_000,
@@ -353,6 +436,12 @@ export default ores = {
         name: "Jinkyl",
         rarity: 3_777_777,
         range: [0, 2000],
+        map: ["wip", 0, 0],
+    },
+    "antimatter": {
+        name: "Antimatter",
+        rarity: 5_000_000,
+        range: [5000, 7000],
         map: ["wip", 0, 0],
     },
     "beard_treas": {
@@ -368,10 +457,28 @@ export default ores = {
         range: [6000, 8000],
         map: ["wip", 0, 0],
     },
+    "gamma_stone": {
+        name: "Gamma Stone",
+        rarity: 10_000_000,
+        range: [4000, 5000],
+        map: ["wip", 0, 0],
+    },
     "mananite": {
         name: "Mananite",
         rarity: 11_235_811,
         range: [1000, 2000],
+        map: ["wip", 0, 0],
+    },
+    "etheril": {
+        name: "Etheril",
+        rarity: 12_000_000,
+        range: [2000, 4000],
+        map: ["wip", 0, 0],
+    },
+    "voidium": {
+        name: "Voidium",
+        rarity: 16_666_666,
+        range: [4000, 6000],
         map: ["wip", 0, 0],
     },
     "naturite": {
@@ -389,6 +496,18 @@ export default ores = {
     "illumina": {
         name: "Illumina",
         rarity: 32_768_000,
+        range: [2000, 5000],
+        map: ["wip", 0, 0],
+    },
+    "apocalyne": {
+        name: "Apocalyne",
+        rarity: 36_666_666,
+        range: [5000, 8000],
+        map: ["wip", 0, 0],
+    },
+    "missingno": {
+        name: "Missing Ore",
+        rarity: 40_404_040,
         map: ["wip", 0, 0],
     },
     "luck_rock": {
@@ -414,7 +533,7 @@ export default ores = {
     },
     // -------------------------------------------------- Otherworldly
     "chorostone": {
-        name: "Chorostone",
+        name: "Choro Rock",
         rarity: 480_000_000,
         map: ["wip", 0, 0],
     },

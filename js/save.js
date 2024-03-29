@@ -81,6 +81,14 @@ function getStartPlayer() {
         inv: {
             normal: {}
         },
+        loadout: {
+            pick: "default",
+            gear: [],
+        },
+        having: {
+            pick: ["default"],
+            gear: [],
+        },
         stats: {
             blockMined: 0,
         },

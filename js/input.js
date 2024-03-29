@@ -30,7 +30,7 @@ export function init() {
 
         if (e.button == 0) {
             if (!interval) interval = setInterval((e) => {
-                if (currentBlock) scene.mineAt(currentBlock.blockPos);
+                scene.usePickaxe();
             }, 50)
             let upEvent = (e) => {
                 if (e.button == 0) {

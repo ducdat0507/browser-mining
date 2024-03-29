@@ -9,11 +9,7 @@ export function build(window) {
     window.style.height = "400px";
 
     window.$title.textContent = "Resources";
-
-    let listDiv = document.createElement("div");
-    listDiv.classList.add("inventory-list");
-    window.$content.$list = listDiv;
-    window.$content.append(listDiv);
+    window.$content.classList.add("scrollable");
 
     window.$list = [];
 }
@@ -38,7 +34,7 @@ export function update(window) {
             item.append(amount);
 
             window.$list.push(item);
-            window.$content.$list.append(item);
+            window.$content.append(item);
         }
         let item = window.$list[index];
         let oreData = ores[ore];
@@ -47,5 +43,9 @@ export function update(window) {
         item.setAttribute("tier", oreData.tier);
 
         index++;
+    }
+    while (window.$list.length > index) {
+        window.$list[index].remove();
+        window.$list.splice(index, 1);
     }
 }

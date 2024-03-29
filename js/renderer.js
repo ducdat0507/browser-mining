@@ -160,6 +160,19 @@ export function updateView() {
     viewCamera.position.y += 1.6;
 
     // Get currently highlighted block
+    updateHighlightedBlock();
+
+    if (currentBlock) {
+        viewCursor.position.copy(currentBlock.blockPos);
+        viewCursor.position.add(new _3.Vector3(0.5, 0.5, 0.5));
+    } else {
+        viewCursor.position.set(NaN, NaN, NaN);
+    }
+
+    viewRenderer.render(viewScene, viewCamera);
+}
+
+export function updateHighlightedBlock() {
     if (input.mouseIn) {
         let start = new _3.Vector3(), end = new _3.Vector3();
         start.setFromMatrixPosition(viewCamera.matrixWorld);
@@ -171,15 +184,6 @@ export function updateView() {
     } else {
         currentBlock = null;
     }
-
-    if (currentBlock) {
-        viewCursor.position.copy(currentBlock.blockPos);
-        viewCursor.position.add(new _3.Vector3(0.5, 0.5, 0.5));
-    } else {
-        viewCursor.position.set(NaN, NaN, NaN);
-    }
-
-    viewRenderer.render(viewScene, viewCamera);
 }
 
 function getChunkGeometryData(chunkPos, chunk) {
