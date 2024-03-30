@@ -73,7 +73,7 @@ export function mineAt(pos, drops = true) {
     }
 }
 
-let oreTower = Object.keys(ores).filter(x => ores[x].rarity).sort((x, y) => ores[x].rarity - ores[y].rarity);
+let oreTower = Object.keys(ores).filter(x => ores[x].rarity).sort((x, y) => ores[y].rarity - ores[x].rarity);
 export function generateOre(pos)
 {
     if (pos.y < -8000) return {type: "barrier"}

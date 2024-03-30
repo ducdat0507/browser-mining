@@ -3,6 +3,7 @@ import * as loader from "./loader.js"
 import * as resources from "./resources.js"
 import * as inventory from "./inventory.js"
 import * as forge from "./forge.js"
+import * as recipe from "./recipe.js"
 import * as error from "./error.js"
 import * as gaiadex from "./gaiadex.js"
 import * as dexBlock from "./dexBlock.js"
@@ -19,6 +20,7 @@ export default {
     resources,
     inventory,
     forge,
+    recipe,
     gaiadex,
     dexBlock,
     options,

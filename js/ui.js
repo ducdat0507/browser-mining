@@ -197,6 +197,33 @@ export function spawnWindow(type, options, ...args) {
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("window-title");
     window.$title = titleDiv;
+    titleDiv.onpointerdown = (e) => {
+        if (e.button != 0) return;
+        if (window.querySelector(".close-button")?.contains(e.target)) return;
+
+        document.body.append(window);
+        let pointerId = e.pointerId;
+        titleDiv.setPointerCapture(pointerId);
+
+        let moveEvent = (e) => {
+            if (!(e.buttons & 1)) upEvent(e);
+            console.log(window);
+            let rect = window.getBoundingClientRect();
+            window.setAttribute("style", "");
+            window.style.left = rect.left + e.movementX + "px";
+            window.style.top = rect.top + e.movementY + "px";
+            window.style.width = rect.width + "px";
+            window.style.height = rect.height + "px";
+        }
+        let upEvent = (e) => {
+            titleDiv.setPointerCapture(pointerId);
+            document.exitPointerLock();
+            titleDiv.removeEventListener("pointermove", moveEvent);
+            titleDiv.removeEventListener("pointerup", upEvent);
+        }
+        titleDiv.addEventListener("pointermove", moveEvent);
+        titleDiv.addEventListener("pointerup", upEvent);
+    };
     window.append(titleDiv);
     
     let contentDiv = document.createElement("div");
@@ -224,4 +251,8 @@ export function closeWindow(window) {
     windows.splice(index, 1);
     if (window.$cover) window.$cover.remove();
     window.remove();
+}
+
+export function doSplash(content) {
+
 }

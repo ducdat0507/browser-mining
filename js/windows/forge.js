@@ -50,7 +50,32 @@ export function build(window) {
     recipe.classList.add("inv-recipe");
     window.$recipe = recipe;
     window.$content.append(recipe);
-    recipe.style.display = "none";
+
+    let recipeHead = document.createElement("div");
+    recipeHead.classList.add("pseudo-window-title", "inv-pin-dragger");
+    window.$recipe.$head = recipeHead;
+    recipeHead.textContent = "Drag to pin recipe";
+    recipeHead.onpointerdown = (e) => {
+        if (e.button != 0) return;
+
+        let recWindow = ui.spawnWindow("recipe", {unique: true});
+        let rect = recipe.getBoundingClientRect();
+        let extraHeight = recipeHead.getBoundingClientRect().height - 1;
+
+        recWindow.$setRecipe(window.$item);
+        recWindow.style.left = rect.left + "px";
+        recWindow.style.top = rect.top - extraHeight + "px";
+        recWindow.style.width = rect.width + "px";
+        recWindow.style.height = rect.height + extraHeight + "px";
+        recWindow.$title.onpointerdown(e);
+
+        recipe.style.display = recipeHead.style.display = "none";
+        window.$item = null;
+        window.style.width = "440px";
+    }
+    window.$content.append(recipeHead);
+    
+    recipe.style.display = recipeHead.style.display = "none";
 
     let activeTabBtn;
 
@@ -82,7 +107,7 @@ export function build(window) {
     function setItem(item) {
         makeToolInfo(desc, item);
 
-        recipe.style.display = "";
+        recipe.style.display = recipeHead.style.display = "";
         window.style.width = "640px";
         window.$item = item;
 
@@ -103,7 +128,7 @@ export function build(window) {
             save.setDirty();
 
             window.querySelector("[item='" + item[1] + "']")?.remove();
-            window.$recipe.style.display = "none";
+            window.$recipe.style.display = window.$recipe.$head.style.display = "none";
             window.$item = null;
             button.disabled = true;
             button.textContent = "Forged!";
@@ -156,6 +181,7 @@ export function update(window) {
             item.$name.textContent = oreData.name;
             item.$amount.textContent = format(current) + " / " + format(goal);
             item.setAttribute("tier", oreData.tier);
+            item.classList.toggle("complete", current >= goal);
         
             canForge &&= current >= goal;
             index++;

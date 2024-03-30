@@ -1,4 +1,4 @@
-import { moveCamera, currentBlock } from "./renderer.js";
+import { moveCamera, currentBlock, updateHighlightedBlock } from "./renderer.js";
 import * as save from "./save.js";
 import * as scene from "./scene.js";
 
@@ -31,6 +31,7 @@ export function init() {
         if (e.button == 0) {
             if (!interval) interval = setInterval((e) => {
                 scene.usePickaxe();
+                updateHighlightedBlock();
             }, 50)
             let upEvent = (e) => {
                 if (e.button == 0) {
