@@ -16,6 +16,9 @@ export function init() {
 
     // Mouse input
     view.addEventListener("pointerdown", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
         {
             let pointerId = e.pointerId;
             view.setPointerCapture(pointerId);

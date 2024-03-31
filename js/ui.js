@@ -76,7 +76,14 @@ export function init() {
 export function update() {
     topbar.$block.$value.textContent = format(data.stats.blockMined);
     topbar.$depth.$value.textContent = format(-scene.playerPos.y) + "m";
-    topbar.$mine.$value.textContent = format(Math.floor(scene.mineCapValue / scene.mineCapMax * 100)) + "%";
+
+    if (scene.timeUntilReset) {
+        topbar.$mine.$title.textContent = "Time until collapse";
+        topbar.$mine.$value.textContent = ":" + format(Math.floor((scene.timeUntilReset - Date.now()) / 1000));
+    } else {
+        topbar.$mine.$title.textContent = "Mine capacity";
+        topbar.$mine.$value.textContent = format(Math.floor(scene.mineCapValue / scene.mineCapMax * 100)) + "%";
+    }
 
     if (currentBlock) {
         let oreData = ores[currentBlock.block.type];
@@ -261,6 +268,16 @@ export function closeWindow(window) {
     window.remove();
 }
 
-export function doSplash(content) {
-
+export function doSplash(content, options = {}) {
+    let spl = document.createElement("div");
+    spl.classList.add("splash");
+    spl.classList.add(...(options.class ?? []));
+    spl.addEventListener("animationend", () => {
+        spl.remove();
+    });
+    spl.append(content);
+    splash.append(spl);
+    return spl;
 }
+
+window.doSplash = doSplash;

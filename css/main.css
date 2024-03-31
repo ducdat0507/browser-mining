@@ -131,6 +131,57 @@ button {
     line-height: 1.2;
 }
 
+.splash {
+    animation: splash 5s linear;
+}
+@keyframes splash {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.splash.rare-spawn-splash {
+    animation: rare-spawn-splash 5s linear;
+}
+@keyframes rare-spawn-splash {
+    0% {
+        filter: brightness(3);
+        text-shadow: 0px 0px 20px white, -25px 1px 20px black, 0 1px 20px black, 25px 1px 20px black;
+    }
+    10% {
+        filter: brightness(1);
+        text-shadow: 0px 0px 20px #fff0, -25px 1px 20px black, 0 1px 20px black, 25px 1px 20px black;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.splash.rare-spawn-splash small {
+    animation: rare-spawn-splash-small 6s linear;
+}
+@keyframes rare-spawn-splash-small {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
 /* -------------------------------------------------- Topbar
 */
 #topbar {

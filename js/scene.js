@@ -1,6 +1,7 @@
 import * as _3 from "three";
 import * as save from "./save.js";
 import * as input from "./input.js";
+import * as ui from "./ui.js";
 import ores from "./data/ores.js";
 import picks from "./data/picks.js";
 import { viewCamera, currentBlock } from "./renderer.js";
@@ -48,10 +49,17 @@ export function getChunkSubpos(pos) {
 
 export function resetMine() {
     for (let id in mine) delete mine[id];
+    mineCapValue = 0;
+
     for (let x = -5; x <= 5; x++)
     for (let y = -2; y <= 0; y++)
     for (let z = -5; z <= 5; z++)
         mineAt(new _3.Vector3(x, y, z), false);
+    
+    playerPos = new _3.Vector3(0.5, -2, 0.5);
+    playerVel = new _3.Vector3(0, 0, 0);
+
+    timeSinceReset = Date.now();
 }
 
 export function mineAt(pos, drops = true) {
@@ -87,7 +95,17 @@ export function generateOre(pos)
     for (let ore of oreTower) {
         if (isEligible(ore)) {
             rngSum += 1 / ores[ore].rarity;
-            if (rng < rngSum) return {type: ore}
+            if (rng < rngSum) {
+                if (ores[ore].rarity >= 1e6) {
+                    let content = document.createElement("div");
+                    content.innerHTML = `
+                        <i>A feeling of chill goes down your spine...</i><br>
+                        <small>An ore with a rarity of ${format(ores[ore].rarity)} has appeared in the mine.</small>
+                    `
+                    ui.doSplash(content, {class:["rare-spawn-splash"]});
+                }
+                return {type: ore}
+            }
         }
     }
 
@@ -327,7 +345,30 @@ export function doPhysics(delta) {
         }
         playerPos.z += move;
     }
+
+    checkForCollapse();
 }
+
+export let timeUntilReset = null;
+export let timeSinceReset = null;
+
+export function checkForCollapse() {
+    let time = Date.now();
+    if (!timeUntilReset) {
+        let grace = 30;
+        if (time - timeSinceReset < 30000) grace = 60;
+
+        if (mineCapValue >= mineCapMax) {
+            timeUntilReset = time + grace * 1000;
+            ui.doSplash("The mine will collapse in " + grace + " seconds.");
+        }
+    } else if (time >= timeUntilReset) {
+        resetMine();
+        timeUntilReset = null;
+    }
+}
+
+
 
 export function usePickaxe() {
     if (currentBlock) {
@@ -350,7 +391,7 @@ export function teleportToDepth(depth) {
     for (let z = -1; z <= 1; z++)
         mineAt(new _3.Vector3(x, y - depth, z), false);
     playerPos = new _3.Vector3(0.5, -depth, 0.5);
-    console.log("teleporting to pos", depth);
+    playerVel = new _3.Vector3(0, 0, 0);
 }
 
 resetMine();
