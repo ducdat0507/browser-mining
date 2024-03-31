@@ -19,8 +19,9 @@ export function init() {
         {
             let pointerId = e.pointerId;
             view.setPointerCapture(pointerId);
+            let button = e.button;
             let upEvent = (e) => {
-                if (e.button == 0) {
+                if (!(e.buttons & (2 ** button))) {
                     view.releasePointerCapture(pointerId);
                     view.removeEventListener("pointerup", upEvent);
                 }
@@ -34,7 +35,7 @@ export function init() {
                 updateHighlightedBlock();
             }, 50)
             let upEvent = (e) => {
-                if (e.button == 0) {
+                if (!(e.buttons & (2 ** 0))) {
                     clearInterval(interval);
                     interval = null;
                     view.removeEventListener("pointerup", upEvent);
@@ -54,7 +55,7 @@ export function init() {
                 moveCamera(e.movementX, e.movementY);
             }
             let upEvent = (e) => {
-                if (e.button == 2) {
+                if (!(e.buttons & (2 ** 2))) {
                     document.exitPointerLock();
                     cursorPos.remove();
                     view.removeEventListener("pointermove", moveEvent);

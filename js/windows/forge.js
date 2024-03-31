@@ -73,7 +73,7 @@ export function build(window) {
         window.$item = null;
         window.style.width = "440px";
     }
-    window.$content.append(recipeHead);
+    window.append(recipeHead);
     
     recipe.style.display = recipeHead.style.display = "none";
 

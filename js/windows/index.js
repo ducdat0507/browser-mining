@@ -7,6 +7,7 @@ import * as recipe from "./recipe.js"
 import * as error from "./error.js"
 import * as gaiadex from "./gaiadex.js"
 import * as dexBlock from "./dexBlock.js"
+import * as teleport from "./teleport.js"
 import * as options from "./options.js"
 import * as keybinds from "./keybinds.js"
 import * as saveManip from "./saveManip.js"
@@ -23,6 +24,7 @@ export default {
     recipe,
     gaiadex,
     dexBlock,
+    teleport,
     options,
     keybinds,
     saveManip,

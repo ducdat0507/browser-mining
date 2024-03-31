@@ -46,6 +46,7 @@ export function loadResources(onDone, onProgress) {
         "menu-upgrades",
         "menu-gaiadex",
         "menu-statistics",
+        "menu-teleport",
         "menu-options",
         "menu-about",
         "menu-more",

@@ -6,6 +6,7 @@ import { data } from "./save.js";
 import { res } from "./resources.js";
 import * as scene from "./scene.js";
 import windowTypes from "./windows/index.js";
+import * as _3 from "three";
 
 export let topbar, splash, blockInd;
 
@@ -55,6 +56,10 @@ export function init() {
     let optBtn = createMenu("options", "Options");
     optBtn.style.right = "5px";
     optBtn.style.bottom = "5px";
+
+    let telBtn = createMenu("teleport", "Teleport");
+    telBtn.style.right = "60px";
+    telBtn.style.bottom = "5px";
 
     updateDeck();
 
@@ -184,66 +189,69 @@ export let create = {
 }
 
 export function spawnWindow(type, options, ...args) {
-    let window;
+    let win;
 
-    if (options?.unique && (window = windows.find(x => x.$type == type))) {
-        return window;
+    if (options?.unique && (win = windows.find(x => x.$type == type))) {
+        return win;
     }
 
-    window = document.createElement("div");
-    window.classList.add("window");
-    window.close = () => closeWindow(window);
+    win = document.createElement("div");
+    win.classList.add("window");
+    win.close = () => closeWindow(win);
     
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("window-title");
-    window.$title = titleDiv;
+    win.$title = titleDiv;
     titleDiv.onpointerdown = (e) => {
         if (e.button != 0) return;
-        if (window.querySelector(".close-button")?.contains(e.target)) return;
+        if (win.querySelector(".close-button")?.contains(e.target)) return;
 
-        document.body.append(window);
+        document.body.append(win);
         let pointerId = e.pointerId;
         titleDiv.setPointerCapture(pointerId);
 
         let moveEvent = (e) => {
             if (!(e.buttons & 1)) upEvent(e);
-            console.log(window);
-            let rect = window.getBoundingClientRect();
-            window.setAttribute("style", "");
-            window.style.left = rect.left + e.movementX + "px";
-            window.style.top = rect.top + e.movementY + "px";
-            window.style.width = rect.width + "px";
-            window.style.height = rect.height + "px";
+            let rect = win.getBoundingClientRect();
+            win.setAttribute("style", "");
+            win.style.left = rect.left + e.movementX + "px";
+            win.style.top = rect.top + e.movementY + "px";
+            win.style.width = rect.width + "px";
+            win.style.height = rect.height + "px";
         }
         let upEvent = (e) => {
-            titleDiv.setPointerCapture(pointerId);
-            document.exitPointerLock();
+            let rect = win.getBoundingClientRect();
+            win.style.left = _3.MathUtils.clamp(rect.left, 5, window.innerWidth - rect.width - 5) + "px";
+            win.style.top = _3.MathUtils.clamp(rect.top, 5, window.innerHeight - rect.height - 5) + "px";
+
+            titleDiv.releasePointerCapture(pointerId);
+
             titleDiv.removeEventListener("pointermove", moveEvent);
             titleDiv.removeEventListener("pointerup", upEvent);
         }
         titleDiv.addEventListener("pointermove", moveEvent);
         titleDiv.addEventListener("pointerup", upEvent);
     };
-    window.append(titleDiv);
+    win.append(titleDiv);
     
     let contentDiv = document.createElement("div");
     contentDiv.classList.add("window-content");
-    window.$content = contentDiv;
-    window.append(contentDiv);
+    win.$content = contentDiv;
+    win.append(contentDiv);
 
-    window.$type = type;
-    windowTypes[type].build(window, ...args);
+    win.$type = type;
+    windowTypes[type].build(win, ...args);
 
     if (options?.cover) {
         let cover = document.createElement("div");
         cover.classList.add("window-cover");
-        window.$cover = cover;
+        win.$cover = cover;
         document.body.append(cover);
     }
 
-    windows.push(window);
-    document.body.append(window);
-    return window;
+    windows.push(win);
+    document.body.append(win);
+    return win;
 }
 
 export function closeWindow(window) {

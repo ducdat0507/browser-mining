@@ -21,7 +21,7 @@ export default {
             {
                 name: "Double Mine",
                 desc: "Mine a second block at the direction of the cursor.",
-                procChance: 4,
+                procChance: 5,
                 trigger() {
                     updateHighlightedBlock();
                     if (currentBlock) mineAt(currentBlock.blockPos);
@@ -53,13 +53,14 @@ export default {
             {
                 name: "Blockplosion",
                 desc: "Creates an explosion around the block being mined.",
-                procChance: 30,
+                procChance: 54,
                 trigger(block) {
                     let pos = block.blockPos;
-                    for (x = pos.x - 2; x <= pos.x + 2; x++)
-                    for (y = pos.y - 2; y <= pos.y + 2; y++)
-                    for (z = pos.z - 2; z <= pos.z + 2; z++) {
-                        mineAt(new _3.Vector3(x, y, z));
+                    for (let x = -2; x <= 2; x++)
+                    for (let y = -2; y <= 2; y++)
+                    for (let z = -2; z <= 2; z++)
+                    if (x * x + y * y + z * z <= 5) {
+                        mineAt(new _3.Vector3(pos.x + x, pos.y + y, pos.z + z));
                     }
                 }
             },
@@ -75,6 +76,44 @@ export default {
             "diorite": 10000,
             "bedrock": 10000,
             "stone": 10000,
+        },
+    },
+    "reactivil": {
+        name: "Reactivil Mallet",
+        tier: 2,
+        desc: "This radioactive mallet utilizes a number of effects to help you mine blocks easier.",
+        abilities: [
+            {
+                name: "α Particle Decay",
+                desc: "The block being mined decays and spreads to other blocks, also making them decay.",
+                procChance: 80,
+                trigger(block) {
+                }
+            },
+            {
+                name: "β Particle Emission",
+                desc: "Creates a particle that moves forward in the direction of the player and mines all blocks that are in its path.",
+                procChance: 120,
+                trigger(block) {
+                }
+            },
+        ],
+        recipe: {
+            "reactivil": 1,
+            "kryptonite": 1,
+            "viridium": 1,
+            "uranium": 2,
+            "radium": 3,
+            "silicon": 10,
+            "plasma": 10,
+            "diamond": 40,
+            "gold": 250,
+            "steel": 400,
+            "iron": 600,
+            "copper": 1500,
+            "obsidian": 25000,
+            "mantle": 25000,
+            "magma": 25000,
         },
     },
 }

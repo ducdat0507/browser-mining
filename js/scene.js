@@ -344,4 +344,13 @@ export function rollAbilities(item, block) {
     }
 }
 
+export function teleportToDepth(depth) {
+    for (let x = -1; x <= 1; x++)
+    for (let y = 0; y <= 2; y++)
+    for (let z = -1; z <= 1; z++)
+        mineAt(new _3.Vector3(x, y - depth, z), false);
+    playerPos = new _3.Vector3(0.5, -depth, 0.5);
+    console.log("teleporting to pos", depth);
+}
+
 resetMine();

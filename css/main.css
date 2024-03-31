@@ -366,6 +366,7 @@ button {
     flex: 0 1 100%;
     display: flex;
     align-items: stretch;
+    overflow: hidden;
 }
 .inv-grid > * {
     flex: 0 1 100%;
@@ -397,8 +398,8 @@ button {
 }
 .inv-pin-dragger {
     position: absolute;
-    top: calc(-1.2em - 12px);
-    right: 0;
+    top: calc(1.2em + 19px);
+    right: -1px;
     height: calc(1.2em + 12px);
     width: 201px;
     border: 1px solid #aaaa;
@@ -525,6 +526,14 @@ button {
     color: transparent;
 }
 
+/* -------------------------------------------------- Teleport
+*/
+.button-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: stretch;
+}
 
 /* -------------------------------------------------- Rarity tiers
 */
